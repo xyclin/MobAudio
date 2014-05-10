@@ -14,13 +14,13 @@
 		5DF18C05191EB1560040A3B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF18C04191EB1560040A3B1 /* main.m */; };
 		5DF18C09191EB1560040A3B1 /* SNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF18C08191EB1560040A3B1 /* SNAppDelegate.m */; };
 		5DF18C0C191EB1560040A3B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF18C0A191EB1560040A3B1 /* Main.storyboard */; };
-		5DF18C0F191EB1560040A3B1 /* SNViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF18C0E191EB1560040A3B1 /* SNViewController.m */; };
 		5DF18C11191EB1560040A3B1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DF18C10191EB1560040A3B1 /* Images.xcassets */; };
 		5DF18C18191EB1560040A3B1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF18C17191EB1560040A3B1 /* XCTest.framework */; };
 		5DF18C19191EB1560040A3B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF18BF8191EB1560040A3B1 /* Foundation.framework */; };
 		5DF18C1A191EB1560040A3B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF18BFC191EB1560040A3B1 /* UIKit.framework */; };
 		5DF18C22191EB1560040A3B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5DF18C20191EB1560040A3B1 /* InfoPlist.strings */; };
 		5DF18C24191EB1560040A3B1 /* MobAudioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF18C23191EB1560040A3B1 /* MobAudioTests.m */; };
+		5DF18C2F191EBFB90040A3B1 /* SNMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF18C2E191EBFB90040A3B1 /* SNMainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +45,14 @@
 		5DF18C07191EB1560040A3B1 /* SNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNAppDelegate.h; sourceTree = "<group>"; };
 		5DF18C08191EB1560040A3B1 /* SNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNAppDelegate.m; sourceTree = "<group>"; };
 		5DF18C0B191EB1560040A3B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5DF18C0D191EB1560040A3B1 /* SNViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNViewController.h; sourceTree = "<group>"; };
-		5DF18C0E191EB1560040A3B1 /* SNViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNViewController.m; sourceTree = "<group>"; };
 		5DF18C10191EB1560040A3B1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5DF18C16191EB1560040A3B1 /* MobAudioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobAudioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF18C17191EB1560040A3B1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		5DF18C1F191EB1560040A3B1 /* MobAudioTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobAudioTests-Info.plist"; sourceTree = "<group>"; };
 		5DF18C21191EB1560040A3B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5DF18C23191EB1560040A3B1 /* MobAudioTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobAudioTests.m; sourceTree = "<group>"; };
+		5DF18C2D191EBFB90040A3B1 /* SNMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNMainViewController.h; sourceTree = "<group>"; };
+		5DF18C2E191EBFB90040A3B1 /* SNMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNMainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +115,8 @@
 				5DF18C07191EB1560040A3B1 /* SNAppDelegate.h */,
 				5DF18C08191EB1560040A3B1 /* SNAppDelegate.m */,
 				5DF18C0A191EB1560040A3B1 /* Main.storyboard */,
-				5DF18C0D191EB1560040A3B1 /* SNViewController.h */,
-				5DF18C0E191EB1560040A3B1 /* SNViewController.m */,
+				5DF18C2D191EBFB90040A3B1 /* SNMainViewController.h */,
+				5DF18C2E191EBFB90040A3B1 /* SNMainViewController.m */,
 				5DF18C10191EB1560040A3B1 /* Images.xcassets */,
 				5DF18BFF191EB1560040A3B1 /* Supporting Files */,
 			);
@@ -250,8 +250,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DF18C2F191EBFB90040A3B1 /* SNMainViewController.m in Sources */,
 				5DF18C05191EB1560040A3B1 /* main.m in Sources */,
-				5DF18C0F191EB1560040A3B1 /* SNViewController.m in Sources */,
 				5DF18C09191EB1560040A3B1 /* SNAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

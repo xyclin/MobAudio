@@ -1,5 +1,5 @@
 //
-//  SNViewController.h
+//  SNMainViewController.h
 //  MobAudio
 //
 //  Created by Shahmeer Navid on 5/10/14.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SNViewController : UIViewController
+@interface SNMainViewController : UITableViewController
+
+
 
 @end
