@@ -32,7 +32,10 @@ io.sockets.on('connection', function(socket) {
 		delete _clients[_clientId];
 		socket.close();
 	}
-	socket.emit('heartbeat', { timestamp: Date.now() }, handler);
+	(function heartbeat() {
+		socket.emit('heartbeat', { timestamp: Date.now() }, handler);
+		setTimeout(heartbeat, 5000);
+	})();
 	socket.on('list', function(data) {
 		socket.emit('list', {
 			id: data.id,
