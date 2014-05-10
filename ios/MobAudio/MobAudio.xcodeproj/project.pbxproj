@@ -1,0 +1,476 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5DF18BF9191EB1560040A3B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF18BF8191EB1560040A3B1 /* Foundation.framework */; };
+		5DF18BFB191EB1560040A3B1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF18BFA191EB1560040A3B1 /* CoreGraphics.framework */; };
+		5DF18BFD191EB1560040A3B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF18BFC191EB1560040A3B1 /* UIKit.framework */; };
+		5DF18C03191EB1560040A3B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5DF18C01191EB1560040A3B1 /* InfoPlist.strings */; };
+		5DF18C05191EB1560040A3B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF18C04191EB1560040A3B1 /* main.m */; };
+		5DF18C09191EB1560040A3B1 /* SNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF18C08191EB1560040A3B1 /* SNAppDelegate.m */; };
+		5DF18C0C191EB1560040A3B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF18C0A191EB1560040A3B1 /* Main.storyboard */; };
+		5DF18C0F191EB1560040A3B1 /* SNViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF18C0E191EB1560040A3B1 /* SNViewController.m */; };
+		5DF18C11191EB1560040A3B1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DF18C10191EB1560040A3B1 /* Images.xcassets */; };
+		5DF18C18191EB1560040A3B1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF18C17191EB1560040A3B1 /* XCTest.framework */; };
+		5DF18C19191EB1560040A3B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF18BF8191EB1560040A3B1 /* Foundation.framework */; };
+		5DF18C1A191EB1560040A3B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF18BFC191EB1560040A3B1 /* UIKit.framework */; };
+		5DF18C22191EB1560040A3B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5DF18C20191EB1560040A3B1 /* InfoPlist.strings */; };
+		5DF18C24191EB1560040A3B1 /* MobAudioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF18C23191EB1560040A3B1 /* MobAudioTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5DF18C1B191EB1560040A3B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5DF18BED191EB1560040A3B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5DF18BF4191EB1560040A3B1;
+			remoteInfo = MobAudio;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5DF18BF5191EB1560040A3B1 /* MobAudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobAudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DF18BF8191EB1560040A3B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		5DF18BFA191EB1560040A3B1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		5DF18BFC191EB1560040A3B1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		5DF18C00191EB1560040A3B1 /* MobAudio-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobAudio-Info.plist"; sourceTree = "<group>"; };
+		5DF18C02191EB1560040A3B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5DF18C04191EB1560040A3B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5DF18C06191EB1560040A3B1 /* MobAudio-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobAudio-Prefix.pch"; sourceTree = "<group>"; };
+		5DF18C07191EB1560040A3B1 /* SNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNAppDelegate.h; sourceTree = "<group>"; };
+		5DF18C08191EB1560040A3B1 /* SNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNAppDelegate.m; sourceTree = "<group>"; };
+		5DF18C0B191EB1560040A3B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5DF18C0D191EB1560040A3B1 /* SNViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNViewController.h; sourceTree = "<group>"; };
+		5DF18C0E191EB1560040A3B1 /* SNViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNViewController.m; sourceTree = "<group>"; };
+		5DF18C10191EB1560040A3B1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5DF18C16191EB1560040A3B1 /* MobAudioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobAudioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DF18C17191EB1560040A3B1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		5DF18C1F191EB1560040A3B1 /* MobAudioTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobAudioTests-Info.plist"; sourceTree = "<group>"; };
+		5DF18C21191EB1560040A3B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5DF18C23191EB1560040A3B1 /* MobAudioTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobAudioTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5DF18BF2191EB1560040A3B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DF18BFB191EB1560040A3B1 /* CoreGraphics.framework in Frameworks */,
+				5DF18BFD191EB1560040A3B1 /* UIKit.framework in Frameworks */,
+				5DF18BF9191EB1560040A3B1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DF18C13191EB1560040A3B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DF18C18191EB1560040A3B1 /* XCTest.framework in Frameworks */,
+				5DF18C1A191EB1560040A3B1 /* UIKit.framework in Frameworks */,
+				5DF18C19191EB1560040A3B1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5DF18BEC191EB1560040A3B1 = {
+			isa = PBXGroup;
+			children = (
+				5DF18BFE191EB1560040A3B1 /* MobAudio */,
+				5DF18C1D191EB1560040A3B1 /* MobAudioTests */,
+				5DF18BF7191EB1560040A3B1 /* Frameworks */,
+				5DF18BF6191EB1560040A3B1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5DF18BF6191EB1560040A3B1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5DF18BF5191EB1560040A3B1 /* MobAudio.app */,
+				5DF18C16191EB1560040A3B1 /* MobAudioTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5DF18BF7191EB1560040A3B1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5DF18BF8191EB1560040A3B1 /* Foundation.framework */,
+				5DF18BFA191EB1560040A3B1 /* CoreGraphics.framework */,
+				5DF18BFC191EB1560040A3B1 /* UIKit.framework */,
+				5DF18C17191EB1560040A3B1 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5DF18BFE191EB1560040A3B1 /* MobAudio */ = {
+			isa = PBXGroup;
+			children = (
+				5DF18C07191EB1560040A3B1 /* SNAppDelegate.h */,
+				5DF18C08191EB1560040A3B1 /* SNAppDelegate.m */,
+				5DF18C0A191EB1560040A3B1 /* Main.storyboard */,
+				5DF18C0D191EB1560040A3B1 /* SNViewController.h */,
+				5DF18C0E191EB1560040A3B1 /* SNViewController.m */,
+				5DF18C10191EB1560040A3B1 /* Images.xcassets */,
+				5DF18BFF191EB1560040A3B1 /* Supporting Files */,
+			);
+			path = MobAudio;
+			sourceTree = "<group>";
+		};
+		5DF18BFF191EB1560040A3B1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5DF18C00191EB1560040A3B1 /* MobAudio-Info.plist */,
+				5DF18C01191EB1560040A3B1 /* InfoPlist.strings */,
+				5DF18C04191EB1560040A3B1 /* main.m */,
+				5DF18C06191EB1560040A3B1 /* MobAudio-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5DF18C1D191EB1560040A3B1 /* MobAudioTests */ = {
+			isa = PBXGroup;
+			children = (
+				5DF18C23191EB1560040A3B1 /* MobAudioTests.m */,
+				5DF18C1E191EB1560040A3B1 /* Supporting Files */,
+			);
+			path = MobAudioTests;
+			sourceTree = "<group>";
+		};
+		5DF18C1E191EB1560040A3B1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5DF18C1F191EB1560040A3B1 /* MobAudioTests-Info.plist */,
+				5DF18C20191EB1560040A3B1 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5DF18BF4191EB1560040A3B1 /* MobAudio */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5DF18C27191EB1560040A3B1 /* Build configuration list for PBXNativeTarget "MobAudio" */;
+			buildPhases = (
+				5DF18BF1191EB1560040A3B1 /* Sources */,
+				5DF18BF2191EB1560040A3B1 /* Frameworks */,
+				5DF18BF3191EB1560040A3B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MobAudio;
+			productName = MobAudio;
+			productReference = 5DF18BF5191EB1560040A3B1 /* MobAudio.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5DF18C15191EB1560040A3B1 /* MobAudioTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5DF18C2A191EB1560040A3B1 /* Build configuration list for PBXNativeTarget "MobAudioTests" */;
+			buildPhases = (
+				5DF18C12191EB1560040A3B1 /* Sources */,
+				5DF18C13191EB1560040A3B1 /* Frameworks */,
+				5DF18C14191EB1560040A3B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5DF18C1C191EB1560040A3B1 /* PBXTargetDependency */,
+			);
+			name = MobAudioTests;
+			productName = MobAudioTests;
+			productReference = 5DF18C16191EB1560040A3B1 /* MobAudioTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5DF18BED191EB1560040A3B1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SN;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Shahmeer Navid";
+				TargetAttributes = {
+					5DF18C15191EB1560040A3B1 = {
+						TestTargetID = 5DF18BF4191EB1560040A3B1;
+					};
+				};
+			};
+			buildConfigurationList = 5DF18BF0191EB1560040A3B1 /* Build configuration list for PBXProject "MobAudio" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5DF18BEC191EB1560040A3B1;
+			productRefGroup = 5DF18BF6191EB1560040A3B1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5DF18BF4191EB1560040A3B1 /* MobAudio */,
+				5DF18C15191EB1560040A3B1 /* MobAudioTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5DF18BF3191EB1560040A3B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DF18C11191EB1560040A3B1 /* Images.xcassets in Resources */,
+				5DF18C03191EB1560040A3B1 /* InfoPlist.strings in Resources */,
+				5DF18C0C191EB1560040A3B1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DF18C14191EB1560040A3B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DF18C22191EB1560040A3B1 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5DF18BF1191EB1560040A3B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DF18C05191EB1560040A3B1 /* main.m in Sources */,
+				5DF18C0F191EB1560040A3B1 /* SNViewController.m in Sources */,
+				5DF18C09191EB1560040A3B1 /* SNAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DF18C12191EB1560040A3B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DF18C24191EB1560040A3B1 /* MobAudioTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5DF18C1C191EB1560040A3B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5DF18BF4191EB1560040A3B1 /* MobAudio */;
+			targetProxy = 5DF18C1B191EB1560040A3B1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5DF18C01191EB1560040A3B1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5DF18C02191EB1560040A3B1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		5DF18C0A191EB1560040A3B1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5DF18C0B191EB1560040A3B1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5DF18C20191EB1560040A3B1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5DF18C21191EB1560040A3B1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5DF18C25191EB1560040A3B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		5DF18C26191EB1560040A3B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5DF18C28191EB1560040A3B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MobAudio/MobAudio-Prefix.pch";
+				INFOPLIST_FILE = "MobAudio/MobAudio-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		5DF18C29191EB1560040A3B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MobAudio/MobAudio-Prefix.pch";
+				INFOPLIST_FILE = "MobAudio/MobAudio-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		5DF18C2B191EB1560040A3B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MobAudio.app/MobAudio";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MobAudio/MobAudio-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "MobAudioTests/MobAudioTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		5DF18C2C191EB1560040A3B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MobAudio.app/MobAudio";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MobAudio/MobAudio-Prefix.pch";
+				INFOPLIST_FILE = "MobAudioTests/MobAudioTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5DF18BF0191EB1560040A3B1 /* Build configuration list for PBXProject "MobAudio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DF18C25191EB1560040A3B1 /* Debug */,
+				5DF18C26191EB1560040A3B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5DF18C27191EB1560040A3B1 /* Build configuration list for PBXNativeTarget "MobAudio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DF18C28191EB1560040A3B1 /* Debug */,
+				5DF18C29191EB1560040A3B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		5DF18C2A191EB1560040A3B1 /* Build configuration list for PBXNativeTarget "MobAudioTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DF18C2B191EB1560040A3B1 /* Debug */,
+				5DF18C2C191EB1560040A3B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5DF18BED191EB1560040A3B1 /* Project object */;
+}
