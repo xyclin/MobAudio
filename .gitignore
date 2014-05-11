@@ -3,7 +3,8 @@
 *.ap_
 
 # Intellij
-android/.idea/
+.idea/
+workspace.xml
 
 # Files for the Dalvik VM
 *.dex

@@ -7,7 +7,7 @@ public class ClientManager implements ConnectionHandler {
         this.isConnected = false;
     }
 
-    public void connect(String address) {
+    public void connect() {
 
     }
 
