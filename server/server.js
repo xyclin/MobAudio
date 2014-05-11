@@ -40,7 +40,7 @@ app.post('/upload', function(req, res) {
 		});
 	}
 	function handle(data) {
-		fs.writeFile('static/'+rand, data, function(err) {
+		fs.writeFile('static/'+rand, data, { encoding: 'binary' }, function(err) {
 			if (err) {
 				res.send(500)
 			} else {
