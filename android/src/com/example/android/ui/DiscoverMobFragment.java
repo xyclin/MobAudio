@@ -44,7 +44,17 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							lv.setAdapter(new ArrayAdapter<Mob>(this, R.layout.song_element, mobs));
+							lv.setAdapter(new ArrayAdapter<Mob>(this, R.layout.song_element, mobs) {
+								@Override
+								public View getView(int position, View convertView, ViewGroup parent) {
+									convertView = super.getView(position, convertView, parent);
+									TextView name = (TextView)convertView.findViewById(R.id.text_name);
+									TextView label = (TextView)convertView.findViewById(R.id.text_label);
+									final Mob mob = mobs[position];
+									name.setText(mob.getName());
+									label.setText(mob.getLabel());
+								}
+							});
 						}
 					});
 					synchronized(mThreadLock) {
