@@ -70,44 +70,23 @@ public class HostManager{
             Log.i(TAG, "Connected to socket!");
         }
 
-        @Override
-        public void onMessage(String s, IOAcknowledge ioAcknowledge) {
+            @Override
+            public void on(String s, IOAcknowledge ioAcknowledge, Object... objects) {
+                Log.i(TAG, s);
+                if (s == "heartbeat") {
+                    handleHeartbeat();
+                }
 
-        }
 
-        @Override
-        public void onMessage(JSONObject jsonObject, IOAcknowledge ioAcknowledge) {
+            }
 
-        }
-
-        @Override
-        public void on(String event, IOAcknowledge ioAcknowledge, Object... objects) {
-            if (event == null)
-                return;
-            Log.i(TAG, "Server emitted " + event);
-            if (event.equals(HEARTBEAT_EVENT)){
-
-            } else if (event.equals(LIST_EVENT)){
-
-            } else if (event.equals(SUBSCRIBED_EVENT)){
-
-            } else if (event.equals(UNSUBSCRIBE_EVENT)){
-
-            } else if (event.equals(CREATE_EVENT)){
-
-            } else if (event.equals(DESTROY_EVENT)){
-
-            } else if (event.equals(COUNT_EVENT)){
-
-            } else if (event.equals(PLAY_EVENT)){
-
+            @Override
+            public void onError(SocketIOException e) {
+                e.printStackTrace();
             }
         }
 
-        @Override
-        public void onError(SocketIOException e) {
-            System.out.println("an Error occured");
-            e.printStackTrace();
-        }
+    public void handleHeartbeat() {
+        Log.i(TAG, "Handling Heartbeat");
     }
 }

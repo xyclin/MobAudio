@@ -10,7 +10,7 @@ Every 5 seconds:
 `{ timestamp: Date.now() }` (milliseconds)
 
 ## c→s `list`
-`{ id: (anything, even undefined) }`
+`{ id: (anything, even undefined), lat: (latitude float), lon: (latitude float), radius: (search radius in meters) }`
 Requests a s→c `list` reply
 
 ## s→c `list`
