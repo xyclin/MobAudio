@@ -87,7 +87,7 @@ NSString* query;
     loading = true;
     [SVProgressHUD showWithStatus:@"Loading Videos"];
     
-    NSString* parameters = [NSString stringWithFormat:@"http://192.241.208.189:54321/youtube/list?part=snippet&order=rating&type=video&videoDefinition=standard&videoEmbeddable=true&q=%@&pageToken=%@&maxResults=10", query, nextPage];
+    NSString* parameters = [NSString stringWithFormat:@"http://192.241.208.189:54321/youtube/list?part=snippet&order=rating&type=video&videoDefinition=high&videoEmbeddable=true&q=%@&pageToken=%@&maxResults=10&regionCode=US", query, nextPage];
     
     [manager GET:parameters parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         youtube =  [youtube arrayByAddingObjectsFromArray:[((NSDictionary*)responseObject) objectForKey:@"items"]];
@@ -110,9 +110,14 @@ NSString* query;
     thumbs = nil;
     thumbs = [[NSMutableArray alloc] init];
     for(int i = 0 ; i < [youtube count]; i++){
+        
         NSDictionary* snippet = [((NSDictionary*)[youtube objectAtIndex:i]) objectForKey:@"snippet"];
+        NSLog(@"%@", snippet);
         NSString * imageUrl = [[[snippet objectForKey:@"thumbnails"] objectForKey:@"default"] objectForKey:@"url"];
-        [thumbs addObject: [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]]]];
+        NSError* error = nil;
+        NSData* d = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl] options:NSDataReadingMappedIfSafe error:&error];
+        if(!error) [thumbs addObject: [UIImage imageWithData:d]];
+        else [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Retry", nil] show];
     }
 }
 
@@ -121,7 +126,7 @@ NSString* query;
     [SVProgressHUD showWithStatus:@"Loading Videos"];
     
     
-    NSString* parameters = [NSString stringWithFormat:@"http://192.241.208.189:54321/youtube/list?part=snippet&order=rating&type=video&videoDefinition=standard&videoEmbeddable=true&q=%@&pageToken=%@&maxResults=10", query, nextPage];
+    NSString* parameters = [NSString stringWithFormat:@"http://192.241.208.189:54321/youtube/list?part=snippet&order=rating&type=video&videoDefinition=high&videoEmbeddable=true&q=%@&pageToken=%@&maxResults=10&regionCode=US", query, nextPage];
     
     [manager GET:parameters parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

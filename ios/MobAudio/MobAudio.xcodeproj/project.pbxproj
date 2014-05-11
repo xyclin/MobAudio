@@ -50,6 +50,9 @@
 		5DF18C24191EB1560040A3B1 /* MobAudioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF18C23191EB1560040A3B1 /* MobAudioTests.m */; };
 		5DF18C32191EC9750040A3B1 /* SNMobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF18C31191EC9750040A3B1 /* SNMobCell.m */; };
 		5DF40686191EE88B004C8717 /* SNMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF40685191EE88B004C8717 /* SNMainViewController.m */; };
+		5DFC2580191FF2E000CF2041 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 5DFC257F191FF2E000CF2041 /* assets */; };
+		5DFC2582191FFB6200CF2041 /* icon-ios7-checkmark-outline-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFC2581191FFB6200CF2041 /* icon-ios7-checkmark-outline-128.png */; };
+		5DFC258419200D5100CF2041 /* play_alt-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DFC258319200D5100CF2041 /* play_alt-512.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +140,9 @@
 		5DF18C31191EC9750040A3B1 /* SNMobCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNMobCell.m; sourceTree = "<group>"; };
 		5DF40684191EE88B004C8717 /* SNMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNMainViewController.h; sourceTree = "<group>"; };
 		5DF40685191EE88B004C8717 /* SNMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNMainViewController.m; sourceTree = "<group>"; };
+		5DFC257F191FF2E000CF2041 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = MobAudio/Images.xcassets/assets; sourceTree = "<group>"; };
+		5DFC2581191FFB6200CF2041 /* icon-ios7-checkmark-outline-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-ios7-checkmark-outline-128.png"; path = "../../../icon-ios7-checkmark-outline-128.png"; sourceTree = "<group>"; };
+		5DFC258319200D5100CF2041 /* play_alt-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play_alt-512.png"; path = "../../../play_alt-512.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +252,9 @@
 		5DF18BEC191EB1560040A3B1 = {
 			isa = PBXGroup;
 			children = (
+				5DFC2581191FFB6200CF2041 /* icon-ios7-checkmark-outline-128.png */,
+				5DFC258319200D5100CF2041 /* play_alt-512.png */,
+				5DFC257F191FF2E000CF2041 /* assets */,
 				5DA9858A191F7D22001BF788 /* Loader */,
 				5DA98565191F4260001BF788 /* AFNetworking */,
 				5DA98554191F2830001BF788 /* SocketIO */,
@@ -414,10 +423,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DFC2580191FF2E000CF2041 /* assets in Resources */,
+				5DFC258419200D5100CF2041 /* play_alt-512.png in Resources */,
 				5DF18C11191EB1560040A3B1 /* Images.xcassets in Resources */,
 				5DF18C03191EB1560040A3B1 /* InfoPlist.strings in Resources */,
 				5DF18C0C191EB1560040A3B1 /* Main.storyboard in Resources */,
 				5DA9858F191F7D2F001BF788 /* SVProgressHUD.bundle in Resources */,
+				5DFC2582191FFB6200CF2041 /* icon-ios7-checkmark-outline-128.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,7 +600,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobAudio/MobAudio-Prefix.pch";
 				INFOPLIST_FILE = "MobAudio/MobAudio-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -602,7 +614,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobAudio/MobAudio-Prefix.pch";
 				INFOPLIST_FILE = "MobAudio/MobAudio-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

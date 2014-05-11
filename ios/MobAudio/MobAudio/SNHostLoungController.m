@@ -15,7 +15,8 @@
 @implementation SNHostLoungController
 
 SocketIO  *io;
-AVAudioPlayer *myAudioPlayer;
+AVPlayer *myAudioPlayer;
+bool playing;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,7 +33,12 @@ AVAudioPlayer *myAudioPlayer;
     [SVProgressHUD show];
     io = [[SocketIO alloc] initWithDelegate:self];
     [io connectToHost:@"192.241.208.189" onPort:54321];
-    myAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:[self.mob objectForKey:@"url"]] error:nil];
+    NSLog(@"the url: %@", self.mob);
+    NSError* error = nil;
+    playing = false;
+    myAudioPlayer = [AVPlayer playerWithURL:[NSURL URLWithString:[self.mob objectForKey:@"url"]]];
+    
+    if(error) [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
     
 }
 
@@ -52,13 +58,27 @@ AVAudioPlayer *myAudioPlayer;
 
 
 -(IBAction)cancel:(id)sender{
-    [io sendEvent:@"destroy" withData:[self.mob objectForKey:@"mobId"]];
+    [SVProgressHUD showWithStatus:@"Closing"];
+    [myAudioPlayer pause];
+    [io sendEvent:@"destroy" withData:self.mob];
+    [SVProgressHUD dismiss];
     [io disconnect];
     [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 -(IBAction)play:(id)sender{
-    [io sendEvent:@"play" withData:[self.mob objectForKey:@"mobId"]];
+    if(!playing){
+        NSLog(@"%@", self.mob);
+        [io sendEvent:@"play" withData:self.mob];
+        [myAudioPlayer play];
+        ((UIButton*)sender).titleLabel.text = @"pause";
+        playing = true;
+    }
+    else{
+        [myAudioPlayer pause];
+        ((UIButton*)sender).titleLabel.text = @"play";
+    }
 }
 
 @end

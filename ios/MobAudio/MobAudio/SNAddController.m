@@ -32,6 +32,7 @@ NSDictionary* mob;
 {
     [super viewDidLoad];
     manager = [AFHTTPRequestOperationManager manager];
+    mob = [NSDictionary dictionaryWithObjectsAndKeys:self.vid, @"url", nil];
     
 }
 
@@ -61,13 +62,13 @@ NSDictionary* mob;
     [manager GET:@"http://192.241.208.189:54321/youtube/dl" parameters:[NSDictionary dictionaryWithObjectsAndKeys:youtubeUrl, @"url", nil] success:^(AFHTTPRequestOperation *operation, id mp3Url) {
         
         NSString *urlForMp3 = [mp3Url objectForKey:@"upload"];
-        NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:urlForMp3, @"url", name, @"name", @"lol", @"time", [NSNumber numberWithDouble:location.coordinate.latitude], @"lat", [NSNumber numberWithDouble:location.coordinate.longitude], @"lon", nil];
+        mob = [NSDictionary dictionaryWithObjectsAndKeys:urlForMp3, @"url", name, @"name", @"lol", @"time", [NSNumber numberWithDouble:location.coordinate.latitude], @"lat", [NSNumber numberWithDouble:location.coordinate.longitude], @"lon", nil];
         
-        NSLog(@"%@", param);
+        NSLog(@"%@", mob);
        
-        [manager POST:@"http://192.241.208.189:54321/create" parameters:param  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager POST:@"http://192.241.208.189:54321/create" parameters:mob  success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
-            //NSLog(@"%@", responseObject);
+            mob = responseObject;
             
             [SVProgressHUD dismiss];
             
@@ -88,7 +89,7 @@ NSDictionary* mob;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"toHostControl"]){
+    if([segue.identifier isEqualToString:@"toHostLounge"]){
         SNHostLoungController *controller = (SNHostLoungController*)segue.destinationViewController;
         NSLog(@"the mob %@", mob);
         controller.mob = mob;

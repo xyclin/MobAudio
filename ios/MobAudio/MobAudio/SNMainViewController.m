@@ -36,7 +36,7 @@ UIRefreshControl* refreshControl;
     [super viewDidLoad];
     manager = [AFHTTPRequestOperationManager manager];
     [self updateMobs:true];
-    
+    mobs = [[NSArray alloc] init];
     refreshControl = [[UIRefreshControl alloc]init];
     [self.mobsList addSubview:refreshControl];
     [refreshControl addTarget:self action:@selector(updateWithoutHUD) forControlEvents:UIControlEventValueChanged];
@@ -67,14 +67,18 @@ UIRefreshControl* refreshControl;
     [locationManager stopUpdatingLocation];
     CLLocation *location = [locationManager location];
     
+    UITableView* view = self.mobsList;
+    BOOL show = showHUD;
+    
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:location.coordinate.latitude] , @"lat", [NSNumber numberWithDouble:location.coordinate.longitude], @"lon", [NSNumber numberWithDouble:5000], @"radius", nil];
     
     [manager POST:@"http://192.241.208.189:54321/list" parameters:query success:^(AFHTTPRequestOperation *operation, id responseObject) {
         mobs =  [((NSDictionary*)responseObject) objectForKey:@"mobs"];
-        NSLog(@"%@", mobs);
-        if(showHUD) [SVProgressHUD dismiss];
-        else [refreshControl endRefreshing];
-        [[self mobsList] reloadData];
+        
+        if(show) [SVProgressHUD dismiss];
+        //else [refreshControl endRefreshing];
+        
+        //[view reloadData];
         
         
         
@@ -106,8 +110,6 @@ UIRefreshControl* refreshControl;
     
     // Configure the cell...
     cell.title.text = [((NSDictionary*)[mobs objectAtIndex:indexPath.row]) objectForKey:@"name"];
-    cell.date.text = [((NSDictionary*)[mobs objectAtIndex:indexPath.row]) objectForKey:@"time"];
-    cell.location.text = @"coming soon";
     
     
     return cell;
@@ -133,7 +135,7 @@ UIRefreshControl* refreshControl;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(buttonIndex == 1){
-        NSLog(@"updating");
+        //NSLog(@"updating");
         [self updateMobs:true];
     }
 }
