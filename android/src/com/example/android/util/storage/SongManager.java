@@ -19,7 +19,7 @@ public class SongManager {
     /**
      * Function to read all mp3 files and store the details in
      * ArrayList
-     * */
+     */
     public ArrayList<HashMap<String, String>> getPlayList() {
         System.out.println(MEDIA_PATH);
         if (MEDIA_PATH != null) {

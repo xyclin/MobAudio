@@ -17,6 +17,7 @@ var app = require('express')(),
 	bodyParser = require('body-parser'),
 	multiparty = require('multiparty'),
 	request = require('request'),
+	exec = require('child_process').exec,
 	uuid = require('uuid');
 app.use(bodyParser());
 server.listen(54321);
@@ -53,14 +54,13 @@ app.post('/upload', function(req, res) {
 
 app.get('/youtube/dl', function(req, res) {
 	var rand = uuid.v4();
-	exec('youtube-dl -x --audio-format mp3 -q -o \''+rand+'.%(ext)s\' "$url"', {
-		env: { url: req.params.url },
-		cwd: process.cwd+'/static/',
-	}, function(err, stdout, stderr) {
+	exec('youtube-dl -x --audio-format mp3 -q -o \'static/'+rand+'.%(ext)s\' \''+req.query.url.replace(/'/g, "'\\''")+'\'', function(err, stdout, stderr) {
 		if(err) {
+			console.error('error', err);
 			res.send(500);
 		} else {
-			res.send('http://'+req.host+':54322/'+rand+'.mp3');
+			req.query.upload = 'http://'+req.host+':54322/'+rand+'.mp3';
+			res.send(req.query);
 		}
 	});
 });
