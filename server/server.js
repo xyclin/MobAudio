@@ -126,9 +126,11 @@ var api = {
 	},
 	play: function(data) {
 		_data[data.mobId].done = true;
+		var when = Date.now()+3000;
 		broadcast('play', {
 			id: data.id,
 			mobId: data.mobId,
+			timestamp: when,
 		});
 		return null;
 	},
