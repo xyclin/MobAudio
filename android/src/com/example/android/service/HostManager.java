@@ -70,7 +70,17 @@ public class HostManager{
             Log.i(TAG, "Connected to socket!");
         }
 
-            @Override
+        @Override
+        public void onMessage(String s, IOAcknowledge ioAcknowledge) {
+
+        }
+
+        @Override
+        public void onMessage(JSONObject jsonObject, IOAcknowledge ioAcknowledge) {
+
+        }
+
+        @Override
             public void on(String s, IOAcknowledge ioAcknowledge, Object... objects) {
                 Log.i(TAG, s);
                 if (s == "heartbeat") {

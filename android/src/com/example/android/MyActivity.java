@@ -18,8 +18,7 @@ public class MyActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        HostManager host = new HostManager(getApplicationContext());
-        host.connect();
+        HostManager host = HostManager.getInstance();
 
         btnPlay = new Button(this);
         btnPlay.setText("Preppin'");
