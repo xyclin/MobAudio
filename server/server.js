@@ -127,7 +127,7 @@ console.log('RETURN', msg);
 		if (msg === null)
 			req.send(200);
 		else
-			res.send(JSON.stringify(msg));
+			res.send(msg);
 	});
 });
 
