@@ -2,6 +2,7 @@ package com.example.android.service;
 
 import android.os.Handler;
 import android.util.Log;
+import com.example.android.util.audio.AudioTrack;
 import io.socket.IOAcknowledge;
 import io.socket.IOCallback;
 import io.socket.SocketIO;
@@ -129,16 +130,23 @@ public class HostManager {
 
     Handler h;
     Runnable r;
-    public void pleasePostDelayed(Handler h, Runnable r) {
+    AudioTrack track;
+    public void pleasePostDelayed(AudioTrack track, Handler h, Runnable r) {
+        this.track = track;
         this.h=h;
         this.r=r;
     }
 
     public void handlePlay(double when) {
         double delta = 0;
-        if (sum !=0)
-            delta = weight/sum;
-        if (h!=null)
-            h.postDelayed(r, ((long)(System.currentTimeMillis()-when-delta)));
+        Log.d(TAG, "Playing the track");
+        track.play();
+
+        if (sum !=0) {
+            delta = weight / sum;
+        }
+        if (h!=null) {
+            h.postDelayed(r, ((long) (System.currentTimeMillis() - when - delta)));
+        }
     }
 }

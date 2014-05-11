@@ -26,6 +26,11 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
 	ListView mListView;
 	Thread mThread;
 	Object mThreadLock = new Object();
+    private MyActivity activity;
+
+    public DiscoverMobFragment(MyActivity activity) {
+        this.activity = activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,9 +45,9 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
     }
 
     public void refreshList(Location loc){
-        double lat = 0.;
-        double lon = 0.;
-        double radius = 999999999.;
+        double lat = 37.8;
+        double lon = 122.4;
+        double radius = 999999.;
         if (loc != null){
             lat = loc.getLatitude();
             lon = loc.getLongitude();
@@ -51,7 +56,7 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
         MobLoader loader = new MobLoader(){
             @Override
             public void onPostExecute(Mob[] mobs){
-                mListView.setAdapter(new MobAdapter(getActivity(), R.layout.song_element, mobs));
+                mListView.setAdapter(new MobAdapter(getActivity(), R.layout.song_element, R.id.text_name, mobs, activity));
             }
         };
         loader.execute(radius, lat, lon);

@@ -35,7 +35,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
     private DolbyAudioProcessing mDolbyAudioProcessing;
 
     private AudioTrack currenTrack;
-    private ClientManager mClientManager;
+    private HostManager mHostManager;
 
     @Override
     public void onCompletion(MediaPlayer mp) {}
@@ -52,7 +52,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNetworkAPI = NetworkAPI.getInstance();
-        mClientManager = ClientManager.getInstance();
+        mHostManager = HostManager.getInstance();
 
 
         //setContentView(R.layout.main);
@@ -68,13 +68,14 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
             }
         });*/
         setContentView(R.layout.main);
+        setupDolby();
 
         getFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, new DiscoverMobFragment())
+                .add(R.id.fragment_container, new DiscoverMobFragment(this))
                 .addToBackStack(null)
                 .commit();
 
-        HostManager.getInstance().pleasePostDelayed(findViewById(R.id.fragment_container).getHandler(), new Runnable() {
+        HostManager.getInstance().pleasePostDelayed(currenTrack, findViewById(R.id.fragment_container).getHandler(), new Runnable() {
             @Override
             public void run() {
                 Toast.makeText(MyActivity.this, "play!", Toast.LENGTH_LONG).show();
@@ -99,10 +100,10 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
         }
     }
 
-    private void playSong() {
-        currenTrack.prepareSong("PATH");
+    public void playSong(String url) {
+        currenTrack.prepareSong(url);
         Log.i(TAG, "Prepared song");
-        currenTrack.play();
+        // currenTrack.play();
     }
 
     @Override
@@ -115,5 +116,4 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 }

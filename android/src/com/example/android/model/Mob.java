@@ -23,7 +23,7 @@ public class Mob implements Serializable {
     @JsonProperty("mobId")
     private int mobId;
 
-    @JsonProperty("urL")
+    @JsonProperty("url")
     private String url;
 
     @JsonProperty("dist")

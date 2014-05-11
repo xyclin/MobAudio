@@ -21,6 +21,7 @@ public class AudioTrack implements MediaPlayer.OnPreparedListener, MediaPlayer.O
     public void prepareSong(String path) {
         if (!mediaPlayer.isPlaying()) {
             try {
+                Log.d(TAG, path);
                 mediaPlayer.setDataSource(path);
                 mediaPlayer.prepare();
                 isPrepared = true;
