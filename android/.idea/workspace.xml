@@ -69,62 +69,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MyActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/android/MyActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="5" selection-start="312" selection-end="312" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AudioTrack.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/android/util/audio/AudioTrack.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="20" selection-start="2369" selection-end="2369" vertical-scroll-proportion="0.0" vertical-offset="939" max-vertical-offset="1394">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1222#1432#0" expanded="true" />
-                <element signature="e#1425#1426#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HostManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/android/service/HostManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="24" selection-start="62" selection-end="62" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientManager.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ClientManager.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/example/android/service/ClientManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="4" selection-start="71" selection-end="71" vertical-scroll-proportion="0.121140145" vertical-offset="0" max-vertical-offset="421">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DataStoreManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/example/android/util/storage/DataStoreManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="27" selection-start="327" selection-end="327" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1156">
+            <state line="10" column="0" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#283#284#0" expanded="true" />
+                <element signature="e#317#318#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <file leaf-file-name="HostManager.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/example/android/service/HostManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="490" selection-end="490" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
-              <folding />
+            <state line="5" column="33" selection-start="187" selection-end="187" vertical-scroll-proportion="0.20190024" vertical-offset="0" max-vertical-offset="421">
+              <folding>
+                <element signature="e#278#279#0" expanded="true" />
+                <element signature="e#312#313#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -145,7 +109,9 @@
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/com/example/android/util/storage/DataStoreManager.java" />
         <option value="$PROJECT_DIR$/src/com/example/android/util/audio/AudioTrack.java" />
+        <option value="$PROJECT_DIR$/src/com/example/android/service/Person.java" />
         <option value="$PROJECT_DIR$/src/com/example/android/service/ClientManager.java" />
+        <option value="$PROJECT_DIR$/src/com/example/android/service/HostManager.java" />
       </list>
     </option>
   </component>
@@ -541,17 +507,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/example/android/service/HostManager.java">
+    <entry file="file://$PROJECT_DIR$/src/com/example/android/service/ConnectionHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="24" selection-start="62" selection-end="62" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
+        <state line="5" column="52" selection-start="198" selection-end="198" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/android/service/ClientManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="4" selection-start="71" selection-end="71" vertical-scroll-proportion="0.121140145" vertical-offset="0" max-vertical-offset="421">
-          <folding />
+        <state line="10" column="0" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
+          <folding>
+            <element signature="e#283#284#0" expanded="true" />
+            <element signature="e#317#318#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/android/service/HostManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="33" selection-start="187" selection-end="187" vertical-scroll-proportion="0.20190024" vertical-offset="0" max-vertical-offset="421">
+          <folding>
+            <element signature="e#278#279#0" expanded="true" />
+            <element signature="e#312#313#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
