@@ -34,6 +34,10 @@ android {
             assets.srcDirs = ['assets']
         }
 
+        packagingOptions {
+            exclude 'META-INF/LICENSE'
+        }
+
         // Move the tests to tests/java, tests/res, etc...
         instrumentTest.setRoot('tests')
 

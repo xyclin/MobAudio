@@ -20,6 +20,7 @@ import ch.boye.httpclientandroidlib.impl.client.DefaultHttpClient;
 import ch.boye.httpclientandroidlib.params.CoreProtocolPNames;
 import ch.boye.httpclientandroidlib.util.EntityUtils;
 import ch.boye.httpclientandroidlib.entity.mime.MultipartEntityBuilder;
+import com.dolby.dap.DolbyAudioProcessing;
 import com.example.android.service.HostManager;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +42,6 @@ public class MyActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.main);
-
         btnPlay = new Button(this);
         btnPlay.setText("magic?");
         btnPlay.setOnClickListener(new View.OnClickListener() {
