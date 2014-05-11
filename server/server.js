@@ -27,7 +27,7 @@ app.get('/', function(req, res) {
 
 app.post('/upload', multipart(), function(req, res) {
 	var rand = uuid.v4();
-	fs.writeFile('static/'+rand, (req.files || {}).file || req.body.file, function(err) {
+	fs.writeFile('static/'+rand, req.body.file, function(err) {
 		if (err) {
 			res.send(500)
 		} else {
