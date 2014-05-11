@@ -5,6 +5,7 @@
     "raw-body": "~1.1.4",
     "uglify-js": "~2.4.13",
     "uuid": "~1.4.1",
-    "body-parser": "~1.1.0"
+    "body-parser": "~1.1.0",
+    "request": "~2.34.0"
   }
 }

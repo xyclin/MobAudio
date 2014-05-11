@@ -15,6 +15,7 @@ var app = require('express')(),
 	io = require('socket.io').listen(server),
 	fs = require('fs'),
 	bodyParser = require('body-parser'),
+	request = require('request'),
 	uuid = require('uuid');
 app.use(bodyParser());
 server.listen(54321);
@@ -34,7 +35,7 @@ app.post('/upload', function(req, res) {
 	});
 });
 
-app.get('/youtube', function(req, res) {
+app.get('/youtube/dl', function(req, res) {
 	var rand = uuid.v4();
 	exec('youtube-dl -x --audio-format mp3 -q -o \''+rand+'.%(ext)s\' "$url"', {
 		env: { url: req.params.url },
@@ -44,6 +45,20 @@ app.get('/youtube', function(req, res) {
 			res.send(500);
 		} else {
 			res.send('http://'+req.host+':54322/'+rand+'.mp3');
+		}
+	});
+});
+
+app.get('/youtube/list', function(req, res) {
+	var url = 'https://www.googleapis.com/youtube/v3/search?key=AIzaSyCaiXT6QtzUBK0Lt5CvwAgLTnsYiHGgIeU';
+	for(var key in req.query)
+		if(req.query.hasOwnProperty(key))
+			url += '&'+key+'='+encodeURIComponent(req.query[key]);
+	request.get(url, function(err, result, body) {
+		if(err) {
+			res.send(500);
+		} else {
+			res.send(body);
 		}
 	});
 });
