@@ -23,12 +23,13 @@ public class NetworkUploader {
     private static NetworkUploader instance = null;
     private NetworkUploader() {}
 
-    public NetworkUploader getInstance() {
+    public static NetworkUploader getInstance() {
         if (instance == null) {
             instance = new NetworkUploader();
         }
         return instance;
     }
+
     public void showFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");

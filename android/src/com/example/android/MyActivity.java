@@ -25,7 +25,6 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
     private static final int FILE_SELECT_CODE = 0;
     private String TAG = "My Activity";
     private NetworkAPI mNetworkAPI;
-    private NetworkUploader mNetworkUploader;
 
     Button btnPlay;
     MediaPlayer mPlayer;
@@ -80,7 +79,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mNetworkUploader.showFileChooser();
+                NetworkUploader.getInstance().showFileChooser();
             }
         });
         setContentView(btnPlay);
@@ -113,7 +112,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
         switch (requestCode) {
             case FILE_SELECT_CODE:
                 // Catches activityResult from NetworkAPI.showFileChooser and returns RESULT URL STRING.
-                mNetworkUploader.getInstance().uploadFile(requestCode, resultCode, data, this);
+                NetworkUploader.getInstance().uploadFile(requestCode, resultCode, data, this);
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
