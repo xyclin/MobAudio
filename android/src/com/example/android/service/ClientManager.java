@@ -1,5 +1,7 @@
 package com.example.android.service;
 
+import io.socket.SocketIO;
+
 public class ClientManager implements ConnectionHandler {
     private boolean isConnected;
 
@@ -7,8 +9,8 @@ public class ClientManager implements ConnectionHandler {
         this.isConnected = false;
     }
 
-    public void connect() {
-
+    public SocketIO connect() {
+        return null;
     }
 
     public boolean isConnected() {

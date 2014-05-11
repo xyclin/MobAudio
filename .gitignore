@@ -1,3 +1,5 @@
+.DS_Store
+
 # Built application files
 *.apk
 *.ap_
@@ -17,6 +19,7 @@ bin/
 gen/
 
 # Gradle files
+.idea
 .gradle/
 build/
 
