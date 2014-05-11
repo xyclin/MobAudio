@@ -81,14 +81,14 @@ var api = {
 	},
 	unsubscribe: function(data) {
 		console.assert(typeof data.mobId == 'number');
-		delete _subscribers[data.mobId][_clientId];
+		delete _subscribers[data.mobId][data._clientId];
 		--_data[data.mobId].count;
 		broadcast('count', data);
 	},
 	create: function(data) {
 		var mobId = _nextMobId++;
 		_subscribers[mobId] = {};
-		_subscribers[mobId][_clientId] = true;
+		_subscribers[mobId][data._clientId] = true;
 		_data[mobId] = data;
 		data.count = 1;
 		data.mobId = mobId;
