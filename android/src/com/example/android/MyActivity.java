@@ -3,13 +3,10 @@ package com.example.android;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-<<<<<<< HEAD
 import com.example.android.service.HostManager;
-=======
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
->>>>>>> more testing, rm .idea files
+
 
 public class MyActivity extends Activity {
     Button btnPlay;
@@ -20,11 +17,10 @@ public class MyActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
-        setContentView(R.layout.main);
+
         HostManager host = new HostManager(getApplicationContext());
         host.connect();
-=======
+
         btnPlay = new Button(this);
         btnPlay.setText("Preppin'");
         try {
@@ -55,6 +51,5 @@ public class MyActivity extends Activity {
             }
         });
         setContentView(btnPlay);
->>>>>>> more testing, rm .idea files
     }
 }
