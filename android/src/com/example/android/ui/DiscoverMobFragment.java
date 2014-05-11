@@ -11,14 +11,59 @@ import com.dolby.dap.OnDolbyAudioProcessingEventListener;
 import com.example.android.MyActivity;
 import com.example.android.R;
 
-public class DiscoverMobFragment extends Fragment  {
+import android.widget.ListView;
+import com.example.android.service.NetworkAPI;
+import android.widget.ArrayAdapter;
+
+public class DiscoverMobFragment extends Fragment implements LocationListener {
     private DolbyAudioProcessing mDolbyAudioProcessing;
+	ListView mListView;
+	Thread mThread;
+	Object mThreadLock = new Object();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //mPlayer = ClientManager.getInstance().getSong();
-        return inflater.inflate(R.layout.song_play_view, container, false);
+		mListView = inflater.inflate(R.layout.song_play_view, container, false);
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
+        return mListView;
     }
+
+    @Override
+    public void onLocationChanged(Location loc) {
+		final double lat = loc.getLatitude();
+		final double lon = loc.getLongitude();
+
+		synchronized(mThreadLock) {
+			if (mThread != null)
+				return;
+			mThread = new Thread(){
+				@Override
+				public void run() {
+					final Mob[] mobs = NetworkAPI.getInstance().getMobs(5000, lat, lon).toArray();
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							lv.setAdapter(new ArrayAdapter<Mob>(this, R.layout.song_element, mobs));
+						}
+					});
+					synchronized(mThreadLock) {
+						mThread = null;
+					}
+				}
+			}.start();
+		}
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {}
+
+    @Override
+    public void onProviderEnabled(String provider) {}
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
 }
