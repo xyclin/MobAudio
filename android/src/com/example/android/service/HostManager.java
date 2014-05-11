@@ -58,20 +58,20 @@ public class HostManager implements ConnectionHandler {
                 Log.i(TAG, s);
                 if (s == "heartbeat") {
                     handleHeartbeat();
-                    Log.i(TAG, "Done");
                 }
+
+
             }
 
             @Override
             public void onError(SocketIOException e) {
-                System.out.println("an Error occured");
                 e.printStackTrace();
             }
         });
     }
 
     public void handleHeartbeat() {
-        Log.d(TAG, "Handling Heartbeat");
+        Log.i(TAG, "Handling Heartbeat");
     }
 
     public boolean isConnected() {

@@ -90,11 +90,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HostManager.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="HostManager.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/example/android/service/HostManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="38" selection-start="1980" selection-end="1980" vertical-scroll-proportion="0.5416667" vertical-offset="867" max-vertical-offset="1275">
+            <state line="62" column="0" selection-start="1649" selection-end="1649" vertical-scroll-proportion="0.0" vertical-offset="561" max-vertical-offset="1275">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NetworkAPI.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/example/android/service/NetworkAPI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="8" selection-start="958" selection-end="958" vertical-scroll-proportion="0.77922076" vertical-offset="295" max-vertical-offset="918">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -147,6 +158,8 @@
         <option value="$PROJECT_DIR$/src/com/example/android/service/ConnectionHandler.java" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/com/example/android/service/HostManager.java" />
+        <option value="$PROJECT_DIR$/src/com/example/android/service/NetworkFileManager.java" />
+        <option value="$PROJECT_DIR$/src/com/example/android/service/NetworkAPI.java" />
       </list>
     </option>
   </component>
@@ -536,7 +549,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/android/util/storage/DataStoreManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="27" selection-start="327" selection-end="327" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1156" />
+        <state line="14" column="27" selection-start="327" selection-end="327" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1156">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/android/util/audio/AudioTrack.java">
@@ -576,8 +593,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/example/android/service/HostManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="38" selection-start="1980" selection-end="1980" vertical-scroll-proportion="0.5416667" vertical-offset="867" max-vertical-offset="1275">
+        <state line="62" column="0" selection-start="1649" selection-end="1649" vertical-scroll-proportion="0.0" vertical-offset="561" max-vertical-offset="1275">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/example/android/service/NetworkAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="8" selection-start="958" selection-end="958" vertical-scroll-proportion="0.77922076" vertical-offset="295" max-vertical-offset="918">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
