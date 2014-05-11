@@ -67,7 +67,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
                 NetworkUploader.getInstance().showFileChooser();
             }
         });*/
-        setContentView(R.id.fragment_container);
+        setContentView(R.layout.main);
 
         getFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, new DiscoverMobFragment())

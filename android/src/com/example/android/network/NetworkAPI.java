@@ -25,7 +25,7 @@ public class NetworkAPI {
     private String TAG = "NetworkAPI";
     private HttpClient client;
 
-    private static final String API_BASE = "192.241.208.189:54321";
+    private static final String API_BASE = "http://192.241.208.189:54321";
     private static final String LIST_ENDPOINT = "/list";
     private static final String SUBSCRIBE_ENDPOINT = "/subscribe";
     private static final String UNSUBSCRIBE_ENDPOINT = "/unsubscribe";

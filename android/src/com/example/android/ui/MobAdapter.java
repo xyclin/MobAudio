@@ -48,6 +48,7 @@ public class MobAdapter extends ArrayAdapter<Mob> {
         final Mob mob = getItem(position);
         name.setText(mob.getName());
         label.setText(mob.getTime());
+        convertView.setTag(mob.getMobId());
         return convertView;
     }
 }
