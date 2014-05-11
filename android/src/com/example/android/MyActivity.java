@@ -16,6 +16,8 @@ import com.dolby.dap.DolbyAudioProcessing;
 import com.dolby.dap.OnDolbyAudioProcessingEventListener;
 
 import com.example.android.network.NetworkUploader;
+import com.example.android.service.ClientManager;
+import com.example.android.service.HostManager;
 import com.example.android.ui.DiscoverMobFragment;
 import com.example.android.util.audio.AudioTrack;
 
@@ -33,6 +35,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
     private DolbyAudioProcessing mDolbyAudioProcessing;
 
     private AudioTrack currenTrack;
+    private ClientManager mClientManager;
 
     @Override
     public void onCompletion(MediaPlayer mp) {}
@@ -49,6 +52,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNetworkAPI = NetworkAPI.getInstance();
+        mClientManager = ClientManager.getInstance();
 
 
         //setContentView(R.layout.main);
@@ -69,6 +73,13 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
                 .add(R.id.fragment_container, new DiscoverMobFragment())
                 .addToBackStack(null)
                 .commit();
+
+        HostManager.getInstance().pleasePostDelayed(findViewById(R.id.fragment_container).getHandler(), new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MyActivity.this, "play!", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void setupDolby() {
