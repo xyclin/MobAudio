@@ -15,7 +15,7 @@ var app = require('express')(),
 	io = require('socket.io').listen(server),
 	fs = require('fs'),
 	bodyParser = require('body-parser'),
-	multipart = require('connect-multiparty'),
+	multiparty = require('multiparty'),
 	request = require('request'),
 	uuid = require('uuid');
 app.use(bodyParser());
@@ -25,15 +25,30 @@ app.get('/', function(req, res) {
 	res.sendfile(__dirname+'/index.html');
 });
 
-app.post('/upload', multipart(), function(req, res) {
+app.post('/upload', function(req, res) {
 	var rand = uuid.v4();
-	fs.writeFile('static/'+rand, req.body.file, function(err) {
-		if (err) {
-			res.send(500)
-		} else {
-			res.send('http://'+req.host+':54322/'+rand);
-		}
-	});
+	if (req.body.file !== undefined)
+		handle(req.body.file);
+	else {
+		var form = new multiparty.Form({ encoding: 'binary' });
+		form.parse(req, function(err, fields, files) {
+			try {
+				handle(fields.file[0]);
+			} catch(err) {
+				res.send(500);
+			}
+		});
+	}
+	function handle(data) {
+		fs.writeFile('static/'+rand, data, function(err) {
+			if (err) {
+				res.send(500)
+			} else {
+				res.send(200);
+				res.send('http://'+req.host+':54322/'+rand);
+			}
+		});
+	}
 });
 
 app.get('/youtube/dl', function(req, res) {

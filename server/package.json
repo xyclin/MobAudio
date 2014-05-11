@@ -7,6 +7,6 @@
     "uuid": "~1.4.1",
     "body-parser": "~1.1.0",
     "request": "~2.34.0",
-    "connect-multiparty": "~1.0.3"
+    "multiparty": "~3.2.4"
   }
 }
