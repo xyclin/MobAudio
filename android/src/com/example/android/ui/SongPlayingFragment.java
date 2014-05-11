@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.dolby.dap.DolbyAudioProcessing;
-import com.dolby.dap.OnDolbyAudioProcessingEventListener;
-import com.example.android.MyActivity;
 import com.example.android.R;
 
 public class SongPlayingFragment extends Fragment /*implements MediaPlayer.OnCompletionListener,
@@ -18,13 +16,13 @@ public class SongPlayingFragment extends Fragment /*implements MediaPlayer.OnCom
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //mPlayer = ClientManager.getInstance().getSong();
+                             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.song_play_view, container, false);
     }
 
-    public  void play(String address) {
+    public void play(String address) {
         mPlayer.start();
     }
+
+
 }

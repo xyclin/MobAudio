@@ -5,14 +5,12 @@ import io.socket.IOAcknowledge;
 import io.socket.IOCallback;
 import io.socket.SocketIO;
 import io.socket.SocketIOException;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
-import java.net.Socket;
 
-public class HostManager{
+public class HostManager {
     private static final String TAG = "Sockets";
     private SocketIO socket;
     public static final String API_URL = "http://linux024.student.cs.uwaterloo.ca:54321/";
@@ -32,8 +30,8 @@ public class HostManager{
         connect();
     }
 
-    public static HostManager getInstance(){
-        if (instance == null){
+    public static HostManager getInstance() {
+        if (instance == null) {
             synchronized (HostManager.class) {
                 if (instance == null) {
                     instance = new HostManager();
@@ -43,7 +41,7 @@ public class HostManager{
         return instance;
     }
 
-    public boolean subscribeMob(int id){
+    public boolean subscribeMob(int id) {
         JSONObject json = new JSONObject();
         try {
             json.put("modId", id);
@@ -55,7 +53,7 @@ public class HostManager{
         return true;
     }
 
-    private void connect(){
+    private void connect() {
         if (!isConnected()) {
             Log.i(TAG, "Before connecting");
             try {
@@ -95,20 +93,20 @@ public class HostManager{
         }
 
         @Override
-            public void on(String s, IOAcknowledge ioAcknowledge, Object... objects) {
-                Log.i(TAG, s);
-                if (s == "heartbeat") {
-                    handleHeartbeat();
-                }
-
-
+        public void on(String s, IOAcknowledge ioAcknowledge, Object... objects) {
+            Log.i(TAG, s);
+            if (s == "heartbeat") {
+                handleHeartbeat();
             }
 
-            @Override
-            public void onError(SocketIOException e) {
-                e.printStackTrace();
-            }
+
         }
+
+        @Override
+        public void onError(SocketIOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void handleHeartbeat() {
         Log.i(TAG, "Handling Heartbeat");

@@ -1,34 +1,31 @@
 package com.example.android.util.audio;
 
-import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Handler;
-import android.widget.SeekBar;
-import android.widget.Toast;
-import com.example.android.util.storage.DataStoreManager;
+import android.util.Log;
+import com.example.android.SongHandler;
 
 import java.io.IOException;
 
 public class AudioTrack implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
+    private String TAG = "AudioTrack";
+
     private MediaPlayer mediaPlayer;
     private boolean isPrepared;
-    private Context context;
-    private SeekBar seekbar;
-    private Handler handler;
+    private SongHandler handler;
 
-    public AudioTrack(Context context) {
-        this.context = context;
-        this.mediaPlayer= new MediaPlayer();
+    public AudioTrack(SongHandler handler) {
+        this.handler = handler;
+        this.mediaPlayer = new MediaPlayer();
         this.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         this.isPrepared = false;
     }
 
-    public void prepareSong(String key, SeekBar seekBar) {
+    public void prepareSong() {
         if (!mediaPlayer.isPlaying()) {
-            try{
-                mediaPlayer.setDataSource(context, DataStoreManager.getURI(key));
-                mediaPlayer.prepareAsync();
+            try {
+                mediaPlayer.setDataSource(handler.getSongPath());
+                mediaPlayer.prepare();
                 isPrepared = true;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -36,22 +33,12 @@ public class AudioTrack implements MediaPlayer.OnPreparedListener, MediaPlayer.O
         }
     }
 
-    private Runnable UpdateSongTime = new Runnable() {
-        public void run() {
-            int startTime = mediaPlayer.getCurrentPosition();
-            seekbar.setProgress(startTime);
-            handler.postDelayed(this, 100);
-        }
-    };
-
     public void play() {
         if (isPrepared) {
             this.mediaPlayer.start();
-            this.handler.postDelayed(UpdateSongTime, 100);
         } else {
             // Let user know it is still being prepared
-            Toast.makeText(context, "Still being prepared, please wait",
-                    Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Still being prepared, please wait");
         }
     }
 
@@ -61,7 +48,15 @@ public class AudioTrack implements MediaPlayer.OnPreparedListener, MediaPlayer.O
         }
     }
 
-    /** Called when MediaPlayer is ready */
+    public void seekTo(int sec) {
+        if (mediaPlayer.isPlaying() || isPrepared) {
+            mediaPlayer.seekTo(sec);
+        }
+    }
+
+    /**
+     * Called when MediaPlayer is ready
+     */
     public void onPrepared(MediaPlayer player) {
         isPrepared = true; // player.start();
     }
@@ -70,8 +65,7 @@ public class AudioTrack implements MediaPlayer.OnPreparedListener, MediaPlayer.O
     public boolean onError(MediaPlayer mp, int what, int extra) {
         // ... react appropriately ...
         // The MediaPlayer has moved to the Error state, must be reset
-        Toast.makeText(context, "Moved to the wrong state",
-                Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "Error, wrong state");
         return true;
     }
 }

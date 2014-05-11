@@ -1,13 +1,31 @@
 package com.example.android.service;
 
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.util.Log;
+<<<<<<< HEAD
+=======
 
+import android.widget.Toast;
+import ch.boye.httpclientandroidlib.HttpEntity;
+import ch.boye.httpclientandroidlib.HttpResponse;
+import ch.boye.httpclientandroidlib.HttpVersion;
+import ch.boye.httpclientandroidlib.client.HttpClient;
+import ch.boye.httpclientandroidlib.client.methods.HttpPost;
+import ch.boye.httpclientandroidlib.entity.mime.content.ContentBody;
+import ch.boye.httpclientandroidlib.entity.mime.content.FileBody;
+import ch.boye.httpclientandroidlib.impl.client.DefaultHttpClient;
+import ch.boye.httpclientandroidlib.params.CoreProtocolPNames;
+import ch.boye.httpclientandroidlib.util.EntityUtils;
+import ch.boye.httpclientandroidlib.entity.mime.MultipartEntityBuilder;
+>>>>>>> cleaned up main, moved file upload to classes
 import com.example.android.model.Count;
 import com.example.android.model.Mob;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -21,8 +39,8 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.lang.reflect.Array;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,7 +49,7 @@ import java.util.Map;
 
 public class NetworkAPI {
     private String TAG = "NetworkAPI";
-    private HttpClient client;
+    private org.apache.http.client.HttpClient client;
 
     private static final String API_BASE = "192.241.208.189:54321";
     private static final String LIST_ENDPOINT = "/list";
@@ -49,7 +67,7 @@ public class NetworkAPI {
     private static final String COUNT_ROUTE = API_BASE + COUNT_ENDPOINT;
 
     private RestTemplate restTemplate;
-    private Map<String,Object> headers;
+    private Map<String, Object> headers;
 
     private static NetworkAPI instance;
 
@@ -64,13 +82,13 @@ public class NetworkAPI {
         restTemplate.getMessageConverters().add(JSONConverter);
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
         restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
-        headers = new HashMap<String,Object>();
+        headers = new HashMap<String, Object>();
     }
 
-    public static NetworkAPI getInstance(){
-        if (instance == null){
-            synchronized (NetworkAPI.class){
-                if (instance == null){
+    public static NetworkAPI getInstance() {
+        if (instance == null) {
+            synchronized (NetworkAPI.class) {
+                if (instance == null) {
                     instance = new NetworkAPI();
                 }
             }
@@ -78,34 +96,7 @@ public class NetworkAPI {
         return instance;
     }
 
-    public File get(String url) {
-        URI uri = null;
-        try {
-            uri = new URI(url);
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-        }
-
-        HttpGet getRequest = new HttpGet(uri);
-        HttpResponse response = execute(getRequest);
-        return null;
-    }
-
-    public String post(File audioTrack) {
-        return null;
-    }
-
-    public HttpResponse execute(HttpUriRequest request) {
-        HttpResponse response = null;
-        try{
-            response = client.execute(request);
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-        }
-        return response;
-    }
-
-    public List<Mob> getMobs(double radius, double latitude, double longitude){
+    public List<Mob> getMobs(double radius, double latitude, double longitude) {
         Map form = new HashMap();
         form.put("radius", radius);
         form.put("lat", latitude);
@@ -117,7 +108,7 @@ public class NetworkAPI {
         return body == null ? null : Arrays.asList(body);
     }
 
-    public boolean subscribeMob(int id){
+    public boolean subscribeMob(int id) {
         /*Map form = new HashMap();
         form.put("mobId", id);
         HttpEntity requestEntity = new HttpEntity<Map>(form, null);
@@ -128,7 +119,7 @@ public class NetworkAPI {
         return HostManager.getInstance().subscribeMob(id);
     }
 
-    public boolean unsubscribeMob(int id){
+    public boolean unsubscribeMob(int id) {
         Map form = new HashMap();
         form.put("mobId", id);
         HttpEntity requestEntity = new HttpEntity<Map>(form, null);
@@ -138,7 +129,7 @@ public class NetworkAPI {
         return body != null && body.getMobId() != -1;
     }
 
-    public Mob createMob(Mob mob){
+    public Mob createMob(Mob mob) {
         Map form = new HashMap();
         form.put("url", mob.getUrl());
         form.put("name", mob.getName());
@@ -152,7 +143,7 @@ public class NetworkAPI {
         return body == null ? null : body;
     }
 
-    public boolean deleteMob(int id){
+    public boolean deleteMob(int id) {
         Map form = new HashMap();
         form.put("mobId", id);
         HttpEntity requestEntity = new HttpEntity<Map>(form, null);
@@ -162,16 +153,98 @@ public class NetworkAPI {
         return body != null && body.getMobId() != -1;
     }
 
-    public int getCount(int id){
+    public int getCount(int id) {
         Map form = new HashMap();
         form.put("mobId", id);
         HttpEntity requestEntity = new HttpEntity<Map>(form, null);
         ResponseEntity<Count> responseEntity = restTemplate.exchange(DELETE_ROUTE, HttpMethod.POST,
                 requestEntity, Count.class, headers);
         Count body = responseEntity.getBody();
-        return body == null? -1 : body.getCount();
+        return body == null ? -1 : body.getCount();
     }
 
+    public void showFileChooser() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        try {
+            startActivityForResult(
+                    Intent.createChooser(intent, "Select a File to Upload"),
+                    FILE_SELECT_CODE);
+        } catch (android.content.ActivityNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
 
+    public String uploadFile(int requestCode, int resultCode, Intent data, Context main) {
+        String resultString;
+        if (resultCode == RESULT_OK) {
+            // Get the Uri of the selected file
+            Uri uri = data.getData();
+            Log.d("LOG", "File Uri: " + uri.toString());
+            // Get the path
+            String path = getPath(main, uri);
+            Log.d("LOG", "File Path: " + path);
+            // Get the file instance
+            // File file = new File(path);
+            // Initiate the upload
+
+
+            try {
+                ch.boye.httpclientandroidlib.client.HttpClient httpclient = new ch.boye.httpclientandroidlib.impl.client.DefaultHttpClient();
+                httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+
+                HttpPost httppost = new HttpPost("http://192.241.208.189:54323/upload");
+                File file = new File(path);
+
+                MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+
+                ContentBody cbFile = new FileBody(file, "image/jpeg");
+                builder.addPart("file", cbFile);
+
+
+                httppost.setEntity(builder.build());
+                System.out.println("executing request " + httppost.getRequestLine());
+                ch.boye.httpclientandroidlib.HttpResponse response = httpclient.execute(httppost);
+                ch.boye.httpclientandroidlib.HttpEntity resEntity = response.getEntity();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                try {
+                    resEntity.writeTo(baos);
+                    resultString = baos.toString("UTF-8");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println(response.getStatusLine());
+                if (resEntity != null) {
+                    System.out.println(EntityUtils.toString(resEntity));
+                }
+                if (resEntity != null) {
+                    resEntity.consumeContent();
+                }
+
+                httpclient.getConnectionManager().shutdown();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return resultString;
+    }
+
+    public static String getPath(Context context, Uri uri) {
+        if ("content".equalsIgnoreCase(uri.getScheme())) {
+            String[] projection = { "_data" };
+            Cursor cursor = null;
+
+            cursor = context.getContentResolver().query(uri, projection, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow("_data");
+            if (cursor.moveToFirst()) {
+                return cursor.getString(column_index);
+            }
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+        return null;
+    }
 
 }
