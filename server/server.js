@@ -116,4 +116,19 @@ io.sockets.on('connection', function(socket) {
 			mobId: data.mobId,
 		});
 	}.protectWith(handler));
+	socket.on('youtube', function(data) {
+		var rand = uuid.v4();
+		exec('youtube-dl -x --audio-format mp3 -q -o \''+rand+'.%(ext)s\' "$url"', {
+			url: data.url,
+			cwd: process.cwd+'/static/',
+		}, function(err, stdout, stderr) {
+			if(err) {
+				data.err = err;
+				data.upload = null;
+			} else {
+				data.upload = 'http://'+req.host+':54322/'+rand+'.mp3';
+			}
+			socket.emit('youtube', data, handler);
+		});
+	}.protectWith(handler));
 });
