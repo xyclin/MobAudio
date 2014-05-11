@@ -12,11 +12,26 @@ Function.prototype.protectWith = function(handler) {
 
 var app = require('express')(),
 	server = require('http').createServer(app),
-	io = require('socket.io').listen(server);
-app.listen(54321);
+	io = require('socket.io').listen(server),
+	fs = require('fs'),
+	bodyParser = require('body-parser'),
+	uuid = require('uuid');
+app.use(bodyParser());
+server.listen(54321);
 
-app.get('/', function (req, res) {
-	res.sendfile(__dirname + '/index.html');
+app.get('/', function(req, res) {
+	res.sendfile(__dirname+'/index.html');
+});
+
+app.post('/upload', function(req, res) {
+	var rand = uuid.v4();
+	fs.writeFile('static/'+rand, req.body.file, function(err) {
+		if (err) {
+			res.send(500)
+		} else {
+			res.send('http://'+req.host+':54322/'+rand);
+		}
+	});
 });
 
 var _nextClientId = 0;
