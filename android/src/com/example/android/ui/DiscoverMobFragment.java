@@ -1,15 +1,21 @@
 package com.example.android.ui;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.dolby.dap.DolbyAudioProcessing;
+import com.example.android.MyActivity;
 import com.example.android.R;
 
 import android.widget.ListView;
-import com.example.android.service.NetworkAPI;
+import com.example.android.model.Mob;
+import com.example.android.network.NetworkAPI;
 import android.widget.ArrayAdapter;
 
 public class DiscoverMobFragment extends Fragment implements LocationListener {
@@ -23,8 +29,8 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //mPlayer = ClientManager.getInstance().getSong();
-		mListView = inflater.inflate(R.layout.song_play_view, container, false);
-		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		mListView = (ListView) inflater.inflate(R.layout.song_play_view, container, false);
+		LocationManager locationManager = (LocationManager) MyActivity.instance.getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
         return mListView;
     }
@@ -37,21 +43,21 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
 		synchronized(mThreadLock) {
 			if (mThread != null)
 				return;
-			mThread = new Thread(){
+            (mThread = new Thread(){
 				@Override
 				public void run() {
-					final Mob[] mobs = NetworkAPI.getInstance().getMobs(5000, lat, lon).toArray();
-					runOnUiThread(new Runnable() {
+					final Mob[] mobs = (Mob[]) NetworkAPI.getInstance().getMobs(5000, lat, lon).toArray();
+					getActivity().runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							lv.setAdapter(new ArrayAdapter<Mob>(this, R.layout.song_element, mobs));
+							mListView.setAdapter(new ArrayAdapter<Mob>(getActivity(), R.layout.song_element, mobs));
 						}
 					});
 					synchronized(mThreadLock) {
 						mThread = null;
 					}
 				}
-			}.start();
+			}).start();
 		}
     }
 
