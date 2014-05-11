@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">android</string>
+    <string name="name_label">Name</string>
+    <string name="url_label">URL</string>
+    <string name="create_button">Create Group</string>
 </resources>

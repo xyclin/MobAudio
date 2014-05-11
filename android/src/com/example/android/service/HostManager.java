@@ -1,8 +1,6 @@
 package com.example.android.service;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 import io.socket.IOAcknowledge;
 import io.socket.IOCallback;
 import io.socket.SocketIO;
@@ -10,48 +8,67 @@ import io.socket.SocketIOException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
+import java.net.Socket;
 
-public class HostManager implements ConnectionHandler {
-    private String TAG = "Sockets";
-    private boolean isConnected;
-    private Context context;
-    public HostManager(Context context) {
-        this.isConnected = false;
-        this.context = context;
+public class HostManager{
+    private static final String TAG = "Sockets";
+    private SocketIO socket;
+    public static final String API_URL = "http://linux024.student.cs.uwaterloo.ca:54321/";
+
+    public static final String HEARTBEAT_EVENT = "heartbeat";
+    public static final String LIST_EVENT = "list";
+    public static final String SUBSCRIBED_EVENT = "subscribe";
+    public static final String UNSUBSCRIBE_EVENT = "unsubscribe";
+    public static final String CREATE_EVENT = "create";
+    public static final String DESTROY_EVENT = "destroy";
+    public static final String COUNT_EVENT = "count";
+    public static final String PLAY_EVENT = "play";
+
+    private static HostManager instance = null;
+
+    private HostManager() {
+        connect();
     }
 
-    public void connect() {
-        SocketIO socket;
-        Log.i(TAG, "Before connecting");
-        try {
-            socket = new SocketIO("http://linux024.student.cs.uwaterloo.ca:54321/");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return;
+    public static HostManager getInstance(){
+        if (instance == null){
+            synchronized (HostManager.class) {
+                if (instance == null) {
+                    instance = new HostManager();
+                }
+            }
+        }
+        return instance;
+    }
+
+    private void connect(){
+        if (!isConnected()) {
+            Log.i(TAG, "Before connecting");
+            try {
+                socket = new SocketIO(API_URL);
+            } catch (MalformedURLException e) {
+                socket = null;
+                return;
+            }
+            socket.connect(new Callback());
+        }
+    }
+
+    public boolean isConnected() {
+        return socket != null;
+    }
+
+    private class Callback implements IOCallback {
+
+        @Override
+        public void onDisconnect() {
+            socket = null;
         }
 
-        socket.connect(new IOCallback() {
-
-            @Override
-            public void onDisconnect() {
-
-            }
-
-            @Override
-            public void onConnect() {
-                Log.i(TAG, "Connected to socket!");
-                isConnected = true;
-            }
-
-            @Override
-            public void onMessage(String s, IOAcknowledge ioAcknowledge) {
-
-            }
-
-            @Override
-            public void onMessage(JSONObject jsonObject, IOAcknowledge ioAcknowledge) {
-
-            }
+        @Override
+        public void onConnect() {
+            Log.i(TAG, "Connected to socket!");
+        }
 
             @Override
             public void on(String s, IOAcknowledge ioAcknowledge, Object... objects) {
@@ -67,14 +84,9 @@ public class HostManager implements ConnectionHandler {
             public void onError(SocketIOException e) {
                 e.printStackTrace();
             }
-        });
-    }
+        }
 
     public void handleHeartbeat() {
         Log.i(TAG, "Handling Heartbeat");
-    }
-
-    public boolean isConnected() {
-        return isConnected;
     }
 }
