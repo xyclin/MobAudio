@@ -40,7 +40,7 @@ app.post('/upload', function(req, res) {
 		});
 	}
 	function handle(data) {
-		fs.writeFile('static/'+rand, data, function(err) {
+		fs.writeFile('static/'+rand, data, { encoding: 'binary' }, function(err) {
 			if (err) {
 				res.send(500)
 			} else {
@@ -74,7 +74,7 @@ app.get('/youtube/list', function(req, res) {
 		if(err) {
 			res.send(500);
 		} else {
-			res.send(body);
+			res.send(JSON.parse(body));
 		}
 	});
 });
@@ -126,9 +126,11 @@ var api = {
 	},
 	play: function(data) {
 		_data[data.mobId].done = true;
+		var when = Date.now()+3000;
 		broadcast('play', {
 			id: data.id,
 			mobId: data.mobId,
+			timestamp: when,
 		});
 		return null;
 	},

@@ -71,3 +71,7 @@ Someone joined/left a subscribed mob.
 Trigger a s→c `play` for all subscribers.
 `{ mobId: (mob id integer) }`
 Mobs stay in existence.
+
+## s→c `play`
+`{ id: (same as in c→s), mobId: (mob id integer), timestamp: (server timestamp in millis, as in heartbeat, integer) }`
+Mobs stay in existence.
