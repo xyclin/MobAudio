@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.widget.Toast;
 import ch.boye.httpclientandroidlib.HttpEntity;
 import ch.boye.httpclientandroidlib.HttpResponse;
@@ -25,6 +26,7 @@ import com.dolby.dap.OnDolbyAudioProcessingEventListener;
 import com.example.android.service.HostManager;
 import android.view.View;
 import android.widget.Button;
+import com.example.android.util.audio.AudioTrack;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -32,15 +34,17 @@ import java.net.URISyntaxException;
 
 
 public class MyActivity extends Activity implements MediaPlayer.OnCompletionListener,
-        OnDolbyAudioProcessingEventListener {
+        OnDolbyAudioProcessingEventListener, SongHandler {
     public static Activity instance;
 
     private static final int FILE_SELECT_CODE = 0;
     Button btnPlay;
     MediaPlayer mPlayer;
     boolean isRunning;
-    String mobMusicUrl;
+    private Uri mobMusicUrl;
     private DolbyAudioProcessing mDolbyAudioProcessing;
+
+    private AudioTrack currenTrack;
 
     @Override
     public void onCompletion(MediaPlayer mp) {
@@ -68,9 +72,16 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
     }
 
     @Override
+    public Uri getSongUri() {
+        return mobMusicUrl;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.main);
+        currenTrack = new AudioTrack(this);
+
         instance = this;
         btnPlay = new Button(this);
         btnPlay.setText("magic?");
@@ -132,7 +143,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
         });
         setContentView(btnPlay);
         */
-        
+
     }
 
     private void showFileChooser() {
@@ -150,6 +161,12 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
                     Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void playSong(Uri uri) {
+        currenTrack.prepareSong();
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -161,6 +178,10 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
                     // Get the path
                     String path = getPath(this, uri);
                     Log.d("LOG", "File Path: " + path);
+
+                    // TODO
+                    playSong();
+                    return;
                     // Get the file instance
                     // File file = new File(path);
                     // Initiate the upload

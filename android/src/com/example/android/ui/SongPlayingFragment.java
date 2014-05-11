@@ -19,12 +19,12 @@ public class SongPlayingFragment extends Fragment /*implements MediaPlayer.OnCom
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //mPlayer = ClientManager.getInstance().getSong();
         return inflater.inflate(R.layout.song_play_view, container, false);
     }
 
     public  void play(String address) {
         mPlayer.start();
     }
+
+
 }
