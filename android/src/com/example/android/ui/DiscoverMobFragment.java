@@ -1,17 +1,14 @@
 package com.example.android.ui;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.dolby.dap.DolbyAudioProcessing;
-import com.dolby.dap.OnDolbyAudioProcessingEventListener;
-import com.example.android.MyActivity;
 import com.example.android.R;
 
-public class DiscoverMobFragment extends Fragment  {
+public class DiscoverMobFragment extends Fragment {
     private DolbyAudioProcessing mDolbyAudioProcessing;
 
     @Override

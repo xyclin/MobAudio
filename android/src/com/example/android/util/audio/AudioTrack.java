@@ -1,15 +1,9 @@
 package com.example.android.util.audio;
 
-import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Handler;
 import android.util.Log;
-import android.widget.SeekBar;
-import android.widget.Toast;
-import com.example.android.MyActivity;
 import com.example.android.SongHandler;
-import com.example.android.util.storage.DataStoreManager;
 
 import java.io.IOException;
 
@@ -22,15 +16,15 @@ public class AudioTrack implements MediaPlayer.OnPreparedListener, MediaPlayer.O
 
     public AudioTrack(SongHandler handler) {
         this.handler = handler;
-        this.mediaPlayer= new MediaPlayer();
+        this.mediaPlayer = new MediaPlayer();
         this.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         this.isPrepared = false;
     }
 
     public void prepareSong() {
         if (!mediaPlayer.isPlaying()) {
-            try{
-                mediaPlayer.setDataSource(handler.getSongUrl());
+            try {
+                mediaPlayer.setDataSource(handler.getSongPath());
                 mediaPlayer.prepare();
                 isPrepared = true;
             } catch (IOException e) {
@@ -60,7 +54,9 @@ public class AudioTrack implements MediaPlayer.OnPreparedListener, MediaPlayer.O
         }
     }
 
-    /** Called when MediaPlayer is ready */
+    /**
+     * Called when MediaPlayer is ready
+     */
     public void onPrepared(MediaPlayer player) {
         isPrepared = true; // player.start();
     }

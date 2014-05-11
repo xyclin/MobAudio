@@ -1,13 +1,11 @@
 package com.example.android.service;
 
 import android.util.Log;
-
 import com.example.android.model.Count;
 import com.example.android.model.Mob;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -22,7 +20,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -49,7 +46,7 @@ public class NetworkAPI {
     private static final String COUNT_ROUTE = API_BASE + COUNT_ENDPOINT;
 
     private RestTemplate restTemplate;
-    private Map<String,Object> headers;
+    private Map<String, Object> headers;
 
     private static NetworkAPI instance;
 
@@ -64,13 +61,13 @@ public class NetworkAPI {
         restTemplate.getMessageConverters().add(JSONConverter);
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
         restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
-        headers = new HashMap<String,Object>();
+        headers = new HashMap<String, Object>();
     }
 
-    public static NetworkAPI getInstance(){
-        if (instance == null){
-            synchronized (NetworkAPI.class){
-                if (instance == null){
+    public static NetworkAPI getInstance() {
+        if (instance == null) {
+            synchronized (NetworkAPI.class) {
+                if (instance == null) {
                     instance = new NetworkAPI();
                 }
             }
@@ -78,34 +75,7 @@ public class NetworkAPI {
         return instance;
     }
 
-    public File get(String url) {
-        URI uri = null;
-        try {
-            uri = new URI(url);
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-        }
-
-        HttpGet getRequest = new HttpGet(uri);
-        HttpResponse response = execute(getRequest);
-        return null;
-    }
-
-    public String post(File audioTrack) {
-        return null;
-    }
-
-    public HttpResponse execute(HttpUriRequest request) {
-        HttpResponse response = null;
-        try{
-            response = client.execute(request);
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-        }
-        return response;
-    }
-
-    public List<Mob> getMobs(double radius, double latitude, double longitude){
+    public List<Mob> getMobs(double radius, double latitude, double longitude) {
         Map form = new HashMap();
         form.put("radius", radius);
         form.put("lat", latitude);
@@ -117,7 +87,7 @@ public class NetworkAPI {
         return body == null ? null : Arrays.asList(body);
     }
 
-    public boolean subscribeMob(int id){
+    public boolean subscribeMob(int id) {
         /*Map form = new HashMap();
         form.put("mobId", id);
         HttpEntity requestEntity = new HttpEntity<Map>(form, null);
@@ -128,7 +98,7 @@ public class NetworkAPI {
         return HostManager.getInstance().subscribeMob(id);
     }
 
-    public boolean unsubscribeMob(int id){
+    public boolean unsubscribeMob(int id) {
         Map form = new HashMap();
         form.put("mobId", id);
         HttpEntity requestEntity = new HttpEntity<Map>(form, null);
@@ -138,7 +108,7 @@ public class NetworkAPI {
         return body != null && body.getMobId() != -1;
     }
 
-    public Mob createMob(Mob mob){
+    public Mob createMob(Mob mob) {
         Map form = new HashMap();
         form.put("url", mob.getUrl());
         form.put("name", mob.getName());
@@ -152,7 +122,7 @@ public class NetworkAPI {
         return body == null ? null : body;
     }
 
-    public boolean deleteMob(int id){
+    public boolean deleteMob(int id) {
         Map form = new HashMap();
         form.put("mobId", id);
         HttpEntity requestEntity = new HttpEntity<Map>(form, null);
@@ -162,16 +132,13 @@ public class NetworkAPI {
         return body != null && body.getMobId() != -1;
     }
 
-    public int getCount(int id){
+    public int getCount(int id) {
         Map form = new HashMap();
         form.put("mobId", id);
         HttpEntity requestEntity = new HttpEntity<Map>(form, null);
         ResponseEntity<Count> responseEntity = restTemplate.exchange(DELETE_ROUTE, HttpMethod.POST,
                 requestEntity, Count.class, headers);
         Count body = responseEntity.getBody();
-        return body == null? -1 : body.getCount();
+        return body == null ? -1 : body.getCount();
     }
-
-
-
 }

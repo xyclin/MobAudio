@@ -8,40 +8,26 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.widget.Toast;
-import ch.boye.httpclientandroidlib.HttpEntity;
-import ch.boye.httpclientandroidlib.HttpResponse;
-import ch.boye.httpclientandroidlib.HttpVersion;
-import ch.boye.httpclientandroidlib.client.HttpClient;
-import ch.boye.httpclientandroidlib.client.methods.HttpPost;
-import ch.boye.httpclientandroidlib.entity.mime.content.ContentBody;
-import ch.boye.httpclientandroidlib.entity.mime.content.FileBody;
-import ch.boye.httpclientandroidlib.impl.client.DefaultHttpClient;
-import ch.boye.httpclientandroidlib.params.CoreProtocolPNames;
-import ch.boye.httpclientandroidlib.util.EntityUtils;
-import ch.boye.httpclientandroidlib.entity.mime.MultipartEntityBuilder;
-import com.dolby.dap.DolbyAudioProcessing;
-import com.dolby.dap.OnDolbyAudioProcessingEventListener;
-import com.example.android.service.HostManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+import com.dolby.dap.DolbyAudioProcessing;
+import com.dolby.dap.OnDolbyAudioProcessingEventListener;
 import com.example.android.util.audio.AudioTrack;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.net.URISyntaxException;
 
 
 public class MyActivity extends Activity implements MediaPlayer.OnCompletionListener,
         OnDolbyAudioProcessingEventListener, SongHandler {
     public static Activity instance;
 
+    private String TAG = "My Activity";
+
     private static final int FILE_SELECT_CODE = 0;
     Button btnPlay;
     MediaPlayer mPlayer;
     boolean isRunning;
     private Uri mobMusicUrl;
+    private String mobMusicString;
     private DolbyAudioProcessing mDolbyAudioProcessing;
 
     private AudioTrack currenTrack;
@@ -72,8 +58,8 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
     }
 
     @Override
-    public Uri getSongUri() {
-        return mobMusicUrl;
+    public String getSongPath() {
+        return mobMusicString;
     }
 
     @Override
@@ -162,9 +148,10 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
         }
     }
 
-    private void playSong(Uri uri) {
+    private void playSong() {
         currenTrack.prepareSong();
-
+        Log.i(TAG, "Prepared song");
+        currenTrack.play();
     }
 
     @Override
@@ -178,7 +165,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
                     // Get the path
                     String path = getPath(this, uri);
                     Log.d("LOG", "File Path: " + path);
-
+                    mobMusicString = path;
                     // TODO
                     playSong();
                     return;
@@ -186,7 +173,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
                     // File file = new File(path);
                     // Initiate the upload
 
-
+/*
                     try {
                         HttpClient httpclient = new DefaultHttpClient();
                         httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
@@ -207,7 +194,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         try {
                             resEntity.writeTo(baos);
-                            mobMusicUrl = baos.toString("UTF-8");
+                            mobMusicString = baos.toString("UTF-8");
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -223,15 +210,16 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
                         httpclient.getConnectionManager().shutdown();
                     } catch (Exception e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     public static String getPath(Context context, Uri uri) {
         if ("content".equalsIgnoreCase(uri.getScheme())) {
-            String[] projection = { "_data" };
+            String[] projection = {"_data"};
             Cursor cursor = null;
 
             cursor = context.getContentResolver().query(uri, projection, null, null, null);
@@ -240,8 +228,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
                 return cursor.getString(column_index);
             }
 
-        }
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
 

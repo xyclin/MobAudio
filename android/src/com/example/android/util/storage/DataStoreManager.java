@@ -41,20 +41,20 @@ public class DataStoreManager {
             ous = new ByteArrayOutputStream();
             ios = new FileInputStream(file);
             int read = 0;
-            while ( (read = ios.read(buffer)) != -1 ) {
+            while ((read = ios.read(buffer)) != -1) {
                 ous.write(buffer, 0, read);
             }
         } finally {
             try {
-                if ( ous != null )
+                if (ous != null)
                     ous.close();
-            } catch ( IOException e) {
+            } catch (IOException e) {
             }
 
             try {
-                if ( ios != null )
+                if (ios != null)
                     ios.close();
-            } catch ( IOException e) {
+            } catch (IOException e) {
             }
         }
         return ous.toByteArray();

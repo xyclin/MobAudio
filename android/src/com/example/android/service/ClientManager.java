@@ -5,12 +5,10 @@ import io.socket.IOAcknowledge;
 import io.socket.IOCallback;
 import io.socket.SocketIO;
 import io.socket.SocketIOException;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
-import java.net.Socket;
 
 public class ClientManager {
     private static final String TAG = "Sockets";
@@ -32,8 +30,8 @@ public class ClientManager {
         connect();
     }
 
-    public static ClientManager getInstance(){
-        if (instance == null){
+    public static ClientManager getInstance() {
+        if (instance == null) {
             synchronized (HostManager.class) {
                 if (instance == null) {
                     instance = new ClientManager();
@@ -43,7 +41,7 @@ public class ClientManager {
         return instance;
     }
 
-    public boolean subscribeMob(int id){
+    public boolean subscribeMob(int id) {
         JSONObject json = new JSONObject();
         try {
             json.put("modId", id);
@@ -55,7 +53,7 @@ public class ClientManager {
         return true;
     }
 
-    private void connect(){
+    private void connect() {
         if (!isConnected()) {
             Log.i(TAG, "Before connecting");
             try {
