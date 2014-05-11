@@ -70,7 +70,7 @@ public class NetworkAPI {
         return instance;
     }
 
-    public List<Mob> getMobs(double radius, double latitude, double longitude) {
+    public Mob[] getMobs(double radius, double latitude, double longitude) {
         Map form = new HashMap();
         form.put("radius", radius);
         form.put("lat", latitude);
@@ -79,7 +79,7 @@ public class NetworkAPI {
         ResponseEntity<Mob[]> responseEntity = restTemplate.exchange(LIST_ROUTE, HttpMethod.POST,
                 requestEntity, Mob[].class, headers);
         Mob[] body = responseEntity.getBody();
-        return body == null ? null : Arrays.asList(body);
+        return body;
     }
 
     public boolean subscribeMob(int id) {

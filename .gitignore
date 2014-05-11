@@ -33,3 +33,5 @@ proguard/
 *.log
 
 .metadata
+
+android.iml

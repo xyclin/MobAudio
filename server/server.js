@@ -168,7 +168,7 @@ function broadcast(evt, data) {
 	var subs = _subscribers[data.mobId];
 	for(var cid in subs)
 		if(subs.hasOwnProperty(cid))
-			_clients[cid].emit(evt, data, handler);
+			_clients[cid].emit(evt, data);
 }
 
 io.sockets.on('connection', function(socket) {
