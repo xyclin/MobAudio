@@ -60,7 +60,7 @@ app.get('/youtube/dl', function(req, res) {
 			res.send(500);
 		} else {
 			req.query.upload = 'http://'+req.host+':54322/'+rand+'.mp3';
-			res.send(res.query);
+			res.send(req.query);
 		}
 	});
 });
