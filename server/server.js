@@ -95,7 +95,6 @@ var api = {
 		data._clientId = _clientId;
 	},
 	play: function(data) {
-		console.assert(_clientId == data._clientId);
 		_data[data.mobId].done = true;
 		broadcast('play', {
 			id: data.id,
