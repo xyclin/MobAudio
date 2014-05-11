@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import com.dolby.dap.DolbyAudioProcessing;
 import com.example.android.MyActivity;
 import com.example.android.R;
@@ -50,7 +51,18 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
 					getActivity().runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							mListView.setAdapter(new ArrayAdapter<Mob>(getActivity(), R.layout.song_element, mobs));
+							mListView.setAdapter(new ArrayAdapter<Mob>(getActivity(), R.layout.song_element, mobs) {
+								@Override
+								public View getView(int position, View convertView, ViewGroup parent) {
+									convertView = super.getView(position, convertView, parent);
+									TextView name = (TextView)convertView.findViewById(R.id.text_name);
+									TextView label = (TextView)convertView.findViewById(R.id.text_label);
+									final Mob mob = mobs[position];
+									name.setText(mob.getName());
+									label.setText(mob.getTime());
+                                    return convertView;
+								}
+							});
 						}
 					});
 					synchronized(mThreadLock) {
