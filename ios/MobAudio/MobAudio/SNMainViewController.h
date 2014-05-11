@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AFNetworking.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface SNMainViewController : UITableViewController
 
+@interface SNMainViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate>
 
+@property IBOutlet UITableView* mobsList;
 
 @end

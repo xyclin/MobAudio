@@ -7,114 +7,135 @@
 //
 
 #import "SNMainViewController.h"
+#import "SNMobCell.h"
+#import "SocketIOPacket.h"
+#import "SNJoinViewController.h"
+#import "SVProgressHUD.h"
 
-@interface SNMainViewController ()
 
-@end
 
 @implementation SNMainViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+NSArray *mobs;
+AFHTTPRequestOperationManager *manager;
+CLLocationManager* locationManager;
+NSInteger selectedMob;
+UIRefreshControl* refreshControl;
+
+- (id)initWithStyle:(UITableViewStyle)style{
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+       
     }
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    manager = [AFHTTPRequestOperationManager manager];
+    [self updateMobs:true];
+    
+    refreshControl = [[UIRefreshControl alloc]init];
+    [self.mobsList addSubview:refreshControl];
+    [refreshControl addTarget:self action:@selector(updateWithoutHUD) forControlEvents:UIControlEventValueChanged];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - REST
+
+-(void) updateWithoutHUD{
+    [self updateMobs:false];
+}
+
+-(void) updateMobs:(BOOL) showHUD{
+    
+    if(showHUD) [SVProgressHUD showWithStatus:@"Loading Nearby Mobs"];
+    
+    //get location
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    [locationManager startUpdatingLocation];
+    [locationManager stopUpdatingLocation];
+    CLLocation *location = [locationManager location];
+    
+    NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:location.coordinate.latitude] , @"lat", [NSNumber numberWithDouble:location.coordinate.longitude], @"lon", [NSNumber numberWithDouble:5000], @"radius", nil];
+    
+    [manager POST:@"http://192.241.208.189:54321/list" parameters:query success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        mobs =  [((NSDictionary*)responseObject) objectForKey:@"mobs"];
+        NSLog(@"%@", mobs);
+        if(showHUD) [SVProgressHUD dismiss];
+        else [refreshControl endRefreshing];
+        [[self mobsList] reloadData];
+        
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"error %@", error);
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Check Internet Connection" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Retry", nil] show];
+    }];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [mobs count];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    SNMobCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MainCells" forIndexPath:indexPath];
     
     // Configure the cell...
+    cell.title.text = [((NSDictionary*)[mobs objectAtIndex:indexPath.row]) objectForKey:@"name"];
+    cell.date.text = [((NSDictionary*)[mobs objectAtIndex:indexPath.row]) objectForKey:@"time"];
+    cell.location.text = @"coming soon";
+    
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+#pragma mark - table View Delegate
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    selectedMob = indexPath.row;
+    return indexPath;
 }
 
- */
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"toJoinRoom"]){
+        SNJoinViewController *controller = (SNJoinViewController*)[((UINavigationController *)segue.destinationViewController) topViewController];
+        controller.mob = [mobs objectAtIndex:selectedMob];
+    }
+}
+
+#pragma mark- ui alert delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 1){
+        NSLog(@"updating");
+        [self updateMobs:true];
+    }
+}
 
 @end
