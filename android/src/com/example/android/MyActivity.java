@@ -1,9 +1,7 @@
 package com.example.android;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,27 +12,20 @@ import android.widget.Toast;
 import com.dolby.dap.DolbyAudioProcessing;
 import com.dolby.dap.OnDolbyAudioProcessingEventListener;
 
+import com.example.android.network.NetworkUploader;
 import com.example.android.util.audio.AudioTrack;
 
-import com.example.android.service.HostManager;
-import android.view.View;
-import android.widget.Button;
-import com.example.android.service.NetworkAPI;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.net.URISyntaxException;
-
+import com.example.android.network.NetworkAPI;
 
 
 public class MyActivity extends Activity implements MediaPlayer.OnCompletionListener,
         OnDolbyAudioProcessingEventListener, SongHandler {
     public static Activity instance;
 
+    private static final int FILE_SELECT_CODE = 0;
     private String TAG = "My Activity";
     private NetworkAPI mNetworkAPI;
 
-    private static final int FILE_SELECT_CODE = 0;
     Button btnPlay;
     MediaPlayer mPlayer;
     boolean isRunning;
@@ -88,7 +79,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mNetworkAPI.showFileChooser();
+                NetworkUploader.getInstance().showFileChooser();
             }
         });
         setContentView(btnPlay);
@@ -121,7 +112,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
         switch (requestCode) {
             case FILE_SELECT_CODE:
                 // Catches activityResult from NetworkAPI.showFileChooser and returns RESULT URL STRING.
-                mNetworkAPI.uploadFile(requestCode, resultCode, data, this);
+                NetworkUploader.getInstance().uploadFile(requestCode, resultCode, data, this);
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);

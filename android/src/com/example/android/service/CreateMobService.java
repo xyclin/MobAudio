@@ -1,11 +1,9 @@
 package com.example.android.service;
 
 import android.app.IntentService;
-import android.app.Service;
 import android.content.Intent;
-import android.os.IBinder;
-
 import com.example.android.model.Mob;
+import com.example.android.network.NetworkAPI;
 
 /**
  * Created by gabriel on 5/11/14.
