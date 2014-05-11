@@ -15,6 +15,7 @@ var app = require('express')(),
 	io = require('socket.io').listen(server),
 	fs = require('fs'),
 	bodyParser = require('body-parser'),
+	multipart = require('connect-multiparty'),
 	request = require('request'),
 	uuid = require('uuid');
 app.use(bodyParser());
@@ -24,9 +25,9 @@ app.get('/', function(req, res) {
 	res.sendfile(__dirname+'/index.html');
 });
 
-app.post('/upload', function(req, res) {
+app.post('/upload', multipart(), function(req, res) {
 	var rand = uuid.v4();
-	fs.writeFile('static/'+rand, req.body.file, function(err) {
+	fs.writeFile('static/'+rand, (req.files || {}).file || req.body.file, function(err) {
 		if (err) {
 			res.send(500)
 		} else {
