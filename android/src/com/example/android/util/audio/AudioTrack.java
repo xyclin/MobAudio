@@ -3,7 +3,6 @@ package com.example.android.util.audio;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.util.Log;
-import com.example.android.SongHandler;
 
 import java.io.IOException;
 
@@ -12,19 +11,17 @@ public class AudioTrack implements MediaPlayer.OnPreparedListener, MediaPlayer.O
 
     private MediaPlayer mediaPlayer;
     private boolean isPrepared;
-    private SongHandler handler;
 
-    public AudioTrack(SongHandler handler) {
-        this.handler = handler;
+    public AudioTrack() {
         this.mediaPlayer = new MediaPlayer();
         this.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         this.isPrepared = false;
     }
 
-    public void prepareSong() {
+    public void prepareSong(String path) {
         if (!mediaPlayer.isPlaying()) {
             try {
-                mediaPlayer.setDataSource(handler.getSongPath());
+                mediaPlayer.setDataSource(path);
                 mediaPlayer.prepare();
                 isPrepared = true;
             } catch (IOException e) {

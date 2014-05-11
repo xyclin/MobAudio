@@ -16,34 +16,23 @@ import com.dolby.dap.DolbyAudioProcessing;
 import com.dolby.dap.OnDolbyAudioProcessingEventListener;
 
 import com.example.android.network.NetworkUploader;
+import com.example.android.ui.DiscoverMobFragment;
 import com.example.android.util.audio.AudioTrack;
 
 import com.example.android.network.NetworkAPI;
 
 
 public class MyActivity extends Activity implements MediaPlayer.OnCompletionListener,
-        OnDolbyAudioProcessingEventListener, SongHandler {
+        OnDolbyAudioProcessingEventListener{
     public static Activity instance;
 
     private static final int FILE_SELECT_CODE = 0;
     private String TAG = "My Activity";
     private NetworkAPI mNetworkAPI;
 
-    Button btnPlay;
-    MediaPlayer mPlayer;
-    boolean isRunning;
-    private Uri mobMusicUrl;
-    private String mobMusicString;
     private DolbyAudioProcessing mDolbyAudioProcessing;
 
     private AudioTrack currenTrack;
-
-    private FragmentManager mFragmentManager;
-    private FragmentTransaction mFragmentTransaction;
-
-    private Fragment mDiscoverSong;
-    private Fragment mSongPlaying;
-    private Fragment mCreateMob;
 
     @Override
     public void onCompletion(MediaPlayer mp) {}
@@ -57,24 +46,13 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
     public void onDolbyAudioProcessingProfileSelected(DolbyAudioProcessing.PROFILE profile) {}
 
     @Override
-    public String getSongPath() {
-        return mobMusicString;
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mNetworkAPI = NetworkAPI.getInstance();
 
-        mSongPlaying = new Fragment();
-        mDiscoverSong = new Fragment();
-        mCreateMob = new Fragment();
 
-        mFragmentManager = getFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-
-        super.onCreate(savedInstanceState);
         //setContentView(R.layout.main);
-        currenTrack = new AudioTrack(this);
+        currenTrack = new AudioTrack();
 
         instance = this;
         /*btnPlay = new Button(this);
@@ -87,12 +65,10 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
         });*/
         setContentView(R.id.fragment_container);
 
-        switchTo(mDiscoverSong);
-    }
-
-    private void switchTo(Fragment fragment) {
-        mFragmentTransaction.replace(R.id.fragment_container, fragment);
-        mFragmentTransaction.commit();
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, new DiscoverMobFragment())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void setupDolby() {
@@ -113,7 +89,7 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
     }
 
     private void playSong() {
-        currenTrack.prepareSong();
+        currenTrack.prepareSong("PATH");
         Log.i(TAG, "Prepared song");
         currenTrack.play();
     }
