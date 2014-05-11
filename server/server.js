@@ -39,7 +39,6 @@ var _nextMobId = 0;
 var _subscribers = {};
 var _data = {};
 var _clients = {};
-var _mobs = [];
 io.sockets.on('connection', function(socket) {
 	var _clientId = _nextClientId++;
 	_clients[_clientId] = socket;
@@ -61,9 +60,11 @@ io.sockets.on('connection', function(socket) {
 	socket.on('list', function(data) {
 		socket.emit('list', {
 			id: data.id,
-			mobs: _mobs.map(function(mob) {
+			mobs: Object.keys(_data).map(function(mobId) {
+				var mob = _data[mobId];
 				var r = 6378100, RATIO = Math.PI/180;
-				return 2*r*Math.asin(Math.sqrt(Math.pow(Math.sin((mob.lon-data.lat)/2*RATIO), 2)+Math.cos(data.lat*RATIO)*Math.cos(mob.lat*RATIO)*Math.pow((mob.lon-data.lon)/2*RATIO, 2)));
+				mob.dist = 2*r*Math.asin(Math.sqrt(Math.pow(Math.sin((mob.lat-data.lat)/2*RATIO), 2)+Math.cos(data.lat*RATIO)*Math.cos(mob.lat*RATIO)*Math.pow((mob.lon-data.lon)/2*RATIO, 2)));
+				return mob;
 			}).filter(function(mob) {
 				return !mob.done && mob.dist <= data.radius;
 			}).sort(function(a, b) {
