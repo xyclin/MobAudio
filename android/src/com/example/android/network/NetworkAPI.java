@@ -4,6 +4,7 @@ import ch.boye.httpclientandroidlib.client.HttpClient;
 import ch.boye.httpclientandroidlib.impl.client.DefaultHttpClient;
 import com.example.android.model.Count;
 import com.example.android.model.Mob;
+import com.example.android.model.SerializedMob;
 import com.example.android.service.HostManager;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +26,7 @@ public class NetworkAPI {
     private String TAG = "NetworkAPI";
     private HttpClient client;
 
-    private static final String API_BASE = "192.241.208.189:54321";
+    private static final String API_BASE = "http://192.241.208.189:54321";
     private static final String LIST_ENDPOINT = "/list";
     private static final String SUBSCRIBE_ENDPOINT = "/subscribe";
     private static final String UNSUBSCRIBE_ENDPOINT = "/unsubscribe";
@@ -76,9 +77,9 @@ public class NetworkAPI {
         form.put("lat", latitude);
         form.put("lon", longitude);
         HttpEntity requestEntity = new HttpEntity<Map>(form, null);
-        ResponseEntity<Mob[]> responseEntity = restTemplate.exchange(LIST_ROUTE, HttpMethod.POST,
-                requestEntity, Mob[].class, headers);
-        Mob[] body = responseEntity.getBody();
+        ResponseEntity<SerializedMob> responseEntity = restTemplate.exchange(LIST_ROUTE, HttpMethod.POST,
+                requestEntity, SerializedMob.class, headers);
+        Mob[] body = responseEntity.getBody().getMobs();
         return body;
     }
 

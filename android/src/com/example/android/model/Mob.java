@@ -1,5 +1,7 @@
 package com.example.android.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * Created by gabriel on 5/11/14.
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Mob implements Serializable {
     @JsonProperty("name")
     private String name;
@@ -20,7 +23,7 @@ public class Mob implements Serializable {
     @JsonProperty("mobId")
     private int mobId;
 
-    @JsonProperty("urL")
+    @JsonProperty("url")
     private String url;
 
     @JsonProperty("dist")

@@ -172,6 +172,12 @@ function broadcast(evt, data) {
 }
 
 io.sockets.on('connection', function(socket) {
+	if (!socket)
+		return;
+	if (!socket.close)
+		socket.close = new Function; // sometimes not provided
+	if (!socket.emit)
+		socket.emit = new Function;
 	var _clientId = _nextClientId++;
 	_clients[_clientId] = socket;
 	function handler(err) {

@@ -1,6 +1,8 @@
 package com.example.android.service;
 
+import android.os.Handler;
 import android.util.Log;
+import com.example.android.util.audio.AudioTrack;
 import io.socket.IOAcknowledge;
 import io.socket.IOCallback;
 import io.socket.SocketIO;
@@ -13,7 +15,7 @@ import java.net.MalformedURLException;
 public class HostManager {
     private static final String TAG = "Sockets";
     private SocketIO socket;
-    public static final String API_URL = "http://linux024.student.cs.uwaterloo.ca:54321/";
+    public static final String API_URL = "http://192.241.208.189:54321/";
 
     public static final String HEARTBEAT_EVENT = "heartbeat";
     public static final String LIST_EVENT = "list";
@@ -95,8 +97,17 @@ public class HostManager {
         @Override
         public void on(String s, IOAcknowledge ioAcknowledge, Object... objects) {
             Log.i(TAG, s);
-            if (s == "heartbeat") {
-                handleHeartbeat();
+            double timestamp = 0;
+            try {
+                timestamp = ((JSONObject)objects[0]).getDouble("timestamp");
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return;
+            }
+            if ("heartbeat".equals(s)) {
+                handleHeartbeat(timestamp);
+            } else if ("play".equals(s)) {
+                handlePlay(timestamp);
             }
 
 
@@ -108,7 +119,34 @@ public class HostManager {
         }
     }
 
-    public void handleHeartbeat() {
+    double lambda = .3, weight = 0, sum = 0;
+    public void handleHeartbeat(double timestamp) {
+        double delta = System.currentTimeMillis()-timestamp;
+        sum = (1-lambda)*sum+lambda*delta;
+        weight *= 1-lambda;
+        weight += lambda;
         Log.i(TAG, "Handling Heartbeat");
+    }
+
+    Handler h;
+    Runnable r;
+    AudioTrack track;
+    public void pleasePostDelayed(AudioTrack track, Handler h, Runnable r) {
+        this.track = track;
+        this.h=h;
+        this.r=r;
+    }
+
+    public void handlePlay(double when) {
+        double delta = 0;
+        Log.d(TAG, "Playing the track");
+        track.play();
+
+        if (sum !=0) {
+            delta = weight / sum;
+        }
+        if (h!=null) {
+            h.postDelayed(r, ((long) (System.currentTimeMillis() - when - delta)));
+        }
     }
 }

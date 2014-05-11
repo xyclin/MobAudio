@@ -1,11 +1,11 @@
 package com.example.android.ui;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +26,11 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
 	ListView mListView;
 	Thread mThread;
 	Object mThreadLock = new Object();
+    private MyActivity activity;
+
+    public DiscoverMobFragment(MyActivity activity) {
+        this.activity = activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,23 +38,34 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
         // Inflate the layout for this fragment
         //mPlayer = ClientManager.getInstance().getSong();
 		mListView = (ListView) inflater.inflate(R.layout.song_play_view, container, false);
-		LocationManager locationManager = (LocationManager) MyActivity.instance.getSystemService(Context.LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
+        refreshList(null);
         return mListView;
     }
 
-    @Override
-    public void onLocationChanged(Location loc) {
-		final double lat = loc.getLatitude();
-		final double lon = loc.getLongitude();
-
+    public void refreshList(Location loc){
+        double lat = 37.8;
+        double lon = 122.4;
+        double radius = 999999.;
+        if (loc != null){
+            lat = loc.getLatitude();
+            lon = loc.getLongitude();
+            radius = 10000;
+        }
         MobLoader loader = new MobLoader(){
             @Override
             public void onPostExecute(Mob[] mobs){
-                mListView.setAdapter(new MobAdapter(getActivity(), R.layout.song_element, mobs));
+                mListView.setAdapter(new MobAdapter(getActivity(), R.layout.song_element, R.id.text_name, mobs, activity));
             }
         };
-        loader.execute(5000., lat, lon);
+        loader.execute(radius, lat, lon);
+    }
+
+
+    @Override
+    public void onLocationChanged(Location loc) {
+		refreshList(loc);
     }
 
     @Override

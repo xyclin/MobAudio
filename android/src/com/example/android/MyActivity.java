@@ -1,10 +1,13 @@
 package com.example.android;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,77 +16,74 @@ import com.dolby.dap.DolbyAudioProcessing;
 import com.dolby.dap.OnDolbyAudioProcessingEventListener;
 
 import com.example.android.network.NetworkUploader;
+import com.example.android.service.ClientManager;
+import com.example.android.service.HostManager;
+import com.example.android.ui.DiscoverMobFragment;
 import com.example.android.util.audio.AudioTrack;
 
 import com.example.android.network.NetworkAPI;
 
 
 public class MyActivity extends Activity implements MediaPlayer.OnCompletionListener,
-        OnDolbyAudioProcessingEventListener, SongHandler {
+        OnDolbyAudioProcessingEventListener{
     public static Activity instance;
 
     private static final int FILE_SELECT_CODE = 0;
     private String TAG = "My Activity";
     private NetworkAPI mNetworkAPI;
 
-    Button btnPlay;
-    MediaPlayer mPlayer;
-    boolean isRunning;
-    private Uri mobMusicUrl;
-    private String mobMusicString;
     private DolbyAudioProcessing mDolbyAudioProcessing;
 
     private AudioTrack currenTrack;
+    private HostManager mHostManager;
 
     @Override
-    public void onCompletion(MediaPlayer mp) {
-
-    }
-
+    public void onCompletion(MediaPlayer mp) {}
     @Override
-    public void onDolbyAudioProcessingClientConnected() {
-
-    }
-
+    public void onDolbyAudioProcessingClientConnected() {}
     @Override
-    public void onDolbyAudioProcessingClientDisconnected() {
-
-    }
-
+    public void onDolbyAudioProcessingClientDisconnected() {}
     @Override
-    public void onDolbyAudioProcessingEnabled(boolean b) {
-
-    }
-
+    public void onDolbyAudioProcessingEnabled(boolean b) {}
     @Override
-    public void onDolbyAudioProcessingProfileSelected(DolbyAudioProcessing.PROFILE profile) {
-
-    }
-
-    @Override
-    public String getSongPath() {
-        return mobMusicString;
-    }
+    public void onDolbyAudioProcessingProfileSelected(DolbyAudioProcessing.PROFILE profile) {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mNetworkAPI = NetworkAPI.getInstance();
-
         super.onCreate(savedInstanceState);
+        mNetworkAPI = NetworkAPI.getInstance();
+        mHostManager = HostManager.getInstance();
+
+
         //setContentView(R.layout.main);
-        currenTrack = new AudioTrack(this);
+        currenTrack = new AudioTrack();
 
         instance = this;
-        btnPlay = new Button(this);
+        /*btnPlay = new Button(this);
         btnPlay.setText("magic?");
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NetworkUploader.getInstance().showFileChooser();
             }
-        });
-        setContentView(btnPlay);
+        });*/
+        setContentView(R.layout.main);
+        setupDolby();
 
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, new DiscoverMobFragment(this))
+                .addToBackStack(null)
+                .commit();
+
+        HostManager.getInstance().pleasePostDelayed(currenTrack, findViewById(R.id.fragment_container).getHandler(), new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MyActivity.this, "play!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void setupDolby() {
         mDolbyAudioProcessing =
                 DolbyAudioProcessing.getDolbyAudioProcessing(this, DolbyAudioProcessing.PROFILE.VOICE, this);
 
@@ -98,13 +98,12 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
                     "Hello there :)",
                     Toast.LENGTH_SHORT).show();
         }
-
     }
 
-    private void playSong() {
-        currenTrack.prepareSong();
+    public void playSong(String url) {
+        currenTrack.prepareSong(url);
         Log.i(TAG, "Prepared song");
-        currenTrack.play();
+        // currenTrack.play();
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.net.MalformedURLException;
 public class ClientManager {
     private static final String TAG = "Sockets";
     private SocketIO socket;
-    public static final String API_URL = "http://linux024.student.cs.uwaterloo.ca:54321/";
+    public static final String API_URL = "http://192.241.208.189:54321/";
 
     public static final String HEARTBEAT_EVENT = "heartbeat";
     public static final String LIST_EVENT = "list";
