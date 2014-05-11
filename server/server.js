@@ -92,7 +92,6 @@ var api = {
 		_data[mobId] = data;
 		data.count = 1;
 		data.mobId = mobId;
-		data._clientId = _clientId;
 	},
 	play: function(data) {
 		_data[data.mobId].done = true;
@@ -113,9 +112,22 @@ var api = {
 	},
 };
 
+var _requests = 0;
 Object.keys(api).map(function(func) {
 	app.post('/'+func, function(req, res) {
-		res.send(JSON.stringify(api[func](req.body)));
+		req._clientId = -1-_requests++;
+		for(var p in req.body)
+			if(req.body.hasOwnProperty(p) && typeof req.body[p] == 'string' && !isNaN(+req.body[p]))
+				req.body[p] = +req.body[p];
+console.log('REST', req.body);
+		var msg = api[func](req.body);
+		if(msg === undefined)
+			msg = req.body;
+console.log('RETURN', msg);
+		if (msg === null)
+			req.send(200);
+		else
+			res.send(JSON.stringify(msg));
 	});
 });
 

@@ -20,4 +20,4 @@ socket.on('connect', function() {
 setTimeout(function() {
 	console.log('time is up');
 	process.exit(0);
-}, 15000);
+}, 150);
