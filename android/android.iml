@@ -72,6 +72,7 @@
     <orderEntry type="library" exported="" name="jackson-databind-2.2.3" level="project" />
     <orderEntry type="library" exported="" name="jackson-annotations-2.2.3" level="project" />
     <orderEntry type="library" exported="" name="spring-android-core-1.0.1.RELEASE" level="project" />
+    <orderEntry type="library" exported="" name="httpclientandroidlib-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="socketio" level="project" />
   </component>
 </module>

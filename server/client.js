@@ -1,6 +1,7 @@
 //usr/bin/env node "$0" "$@"; exit $?
 var io = require('socket.io-client');
-var socket = io.connect('http://127.0.0.1:54321');
+var socket = io.connect('http://192.241.208.189:54321');
+//var socket = io.connect('http://127.0.0.1:54321');
 socket.on('connect', function() {
 	console.log('connected!');
 	socket.emit('list', { lat: 37.78, lon: -122.39, radius: 5000 }, console.error);
@@ -20,4 +21,4 @@ socket.on('connect', function() {
 setTimeout(function() {
 	console.log('time is up');
 	process.exit(0);
-}, 150);
+}, 1000);

@@ -15,6 +15,7 @@ var app = require('express')(),
 	io = require('socket.io').listen(server),
 	fs = require('fs'),
 	bodyParser = require('body-parser'),
+	multiparty = require('multiparty'),
 	request = require('request'),
 	uuid = require('uuid');
 app.use(bodyParser());
@@ -26,13 +27,28 @@ app.get('/', function(req, res) {
 
 app.post('/upload', function(req, res) {
 	var rand = uuid.v4();
-	fs.writeFile('static/'+rand, req.body.file, function(err) {
-		if (err) {
-			res.send(500)
-		} else {
-			res.send('http://'+req.host+':54322/'+rand);
-		}
-	});
+	if (req.body.file !== undefined)
+		handle(req.body.file);
+	else {
+		var form = new multiparty.Form({ encoding: 'binary' });
+		form.parse(req, function(err, fields, files) {
+			try {
+				handle(fields.file[0]);
+			} catch(err) {
+				res.send(500);
+			}
+		});
+	}
+	function handle(data) {
+		fs.writeFile('static/'+rand, data, { encoding: 'binary' }, function(err) {
+			if (err) {
+				res.send(500)
+			} else {
+				res.send(200);
+				res.send('http://'+req.host+':54322/'+rand);
+			}
+		});
+	}
 });
 
 app.get('/youtube/dl', function(req, res) {
@@ -58,7 +74,7 @@ app.get('/youtube/list', function(req, res) {
 		if(err) {
 			res.send(500);
 		} else {
-			res.send(body);
+			res.send(JSON.parse(body));
 		}
 	});
 });
@@ -110,9 +126,11 @@ var api = {
 	},
 	play: function(data) {
 		_data[data.mobId].done = true;
+		var when = Date.now()+3000;
 		broadcast('play', {
 			id: data.id,
 			mobId: data.mobId,
+			timestamp: when,
 		});
 		return null;
 	},
