@@ -17,6 +17,8 @@ import com.example.android.R;
 import android.widget.ListView;
 import com.example.android.model.Mob;
 import com.example.android.network.NetworkAPI;
+import com.example.android.service.MobLoader;
+
 import android.widget.ArrayAdapter;
 
 public class DiscoverMobFragment extends Fragment implements LocationListener {
@@ -41,36 +43,13 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
 		final double lat = loc.getLatitude();
 		final double lon = loc.getLongitude();
 
-		synchronized(mThreadLock) {
-			if (mThread != null)
-				return;
-            (mThread = new Thread(){
-				@Override
-				public void run() {
-					final Mob[] mobs = (Mob[]) NetworkAPI.getInstance().getMobs(5000, lat, lon).toArray();
-					getActivity().runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							mListView.setAdapter(new ArrayAdapter<Mob>(getActivity(), R.layout.song_element, mobs) {
-								@Override
-								public View getView(int position, View convertView, ViewGroup parent) {
-									convertView = super.getView(position, convertView, parent);
-									TextView name = (TextView)convertView.findViewById(R.id.text_name);
-									TextView label = (TextView)convertView.findViewById(R.id.text_label);
-									final Mob mob = mobs[position];
-									name.setText(mob.getName());
-									label.setText(mob.getTime());
-                                    return convertView;
-								}
-							});
-						}
-					});
-					synchronized(mThreadLock) {
-						mThread = null;
-					}
-				}
-			}).start();
-		}
+        MobLoader loader = new MobLoader(){
+            @Override
+            public void onPostExecute(Mob[] mobs){
+                mListView.setAdapter(new MobAdapter(getActivity(), R.layout.song_element, mobs));
+            }
+        };
+        loader.execute(5000., lat, lon);
     }
 
     @Override
