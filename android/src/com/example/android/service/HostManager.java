@@ -5,6 +5,8 @@ import io.socket.IOAcknowledge;
 import io.socket.IOCallback;
 import io.socket.SocketIO;
 import io.socket.SocketIOException;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
@@ -39,6 +41,18 @@ public class HostManager{
             }
         }
         return instance;
+    }
+
+    public boolean subscribeMob(int id){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("modId", id);
+            return false;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        socket.emit("subscribe", json);
+        return true;
     }
 
     private void connect(){

@@ -31,7 +31,6 @@ import java.util.Map;
 
 public class NetworkAPI {
     private String TAG = "NetworkAPI";
-    private ConnectionHandler handler;
     private HttpClient client;
 
     private static final String API_BASE = "192.241.208.189:54321";
@@ -52,8 +51,9 @@ public class NetworkAPI {
     private RestTemplate restTemplate;
     private Map<String,Object> headers;
 
-    public NetworkAPI(ConnectionHandler handler) {
-        this.handler = handler;
+    private static NetworkAPI instance;
+
+    private NetworkAPI() {
         this.client = new DefaultHttpClient();
         restTemplate = new RestTemplate();
         MappingJackson2HttpMessageConverter JSONConverter = new MappingJackson2HttpMessageConverter();
@@ -65,6 +65,17 @@ public class NetworkAPI {
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
         restTemplate.getMessageConverters().add(new FormHttpMessageConverter());
         headers = new HashMap<String,Object>();
+    }
+
+    public static NetworkAPI getInstance(){
+        if (instance == null){
+            synchronized (NetworkAPI.class){
+                if (instance == null){
+                    instance = new NetworkAPI();
+                }
+            }
+        }
+        return instance;
     }
 
     public File get(String url) {
@@ -107,13 +118,14 @@ public class NetworkAPI {
     }
 
     public boolean subscribeMob(int id){
-        Map form = new HashMap();
+        /*Map form = new HashMap();
         form.put("mobId", id);
         HttpEntity requestEntity = new HttpEntity<Map>(form, null);
         ResponseEntity<Mob> responseEntity = restTemplate.exchange(SUBSCRIBE_ROUTE, HttpMethod.POST,
                 requestEntity, Mob.class, headers);
         Mob body = responseEntity.getBody();
-        return body != null && body.getMobId() != -1;
+        return body != null && body.getMobId() != -1;*/
+        return HostManager.getInstance().subscribeMob(id);
     }
 
     public boolean unsubscribeMob(int id){
@@ -159,6 +171,7 @@ public class NetworkAPI {
         Count body = responseEntity.getBody();
         return body == null? -1 : body.getCount();
     }
+
 
 
 }
