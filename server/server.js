@@ -176,8 +176,12 @@ io.sockets.on('connection', function(socket) {
 	_clients[_clientId] = socket;
 	function handler(err) {
 		console.error('socket error in', _clientId, err);
-		delete _clients[_clientId];
-		socket.close();
+		try {
+			delete _clients[_clientId];
+			socket.close();
+		} catch(err) {
+			console.error('error error', err);
+		}
 	}
 	(function heartbeat() {
 		socket.emit('heartbeat', { timestamp: Date.now() }, handler);
