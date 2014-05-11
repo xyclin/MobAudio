@@ -35,21 +35,32 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
 		mListView = (ListView) inflater.inflate(R.layout.song_play_view, container, false);
 		LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
+        refreshList(null);
         return mListView;
     }
 
-    @Override
-    public void onLocationChanged(Location loc) {
-		final double lat = loc.getLatitude();
-		final double lon = loc.getLongitude();
-
+    public void refreshList(Location loc){
+        double lat = 0.;
+        double lon = 0.;
+        double radius = 999999999.;
+        if (loc != null){
+            lat = loc.getLatitude();
+            lon = loc.getLongitude();
+            radius = 10000;
+        }
         MobLoader loader = new MobLoader(){
             @Override
             public void onPostExecute(Mob[] mobs){
                 mListView.setAdapter(new MobAdapter(getActivity(), R.layout.song_element, mobs));
             }
         };
-        loader.execute(5000., lat, lon);
+        loader.execute(radius, lat, lon);
+    }
+
+
+    @Override
+    public void onLocationChanged(Location loc) {
+		refreshList(loc);
     }
 
     @Override
