@@ -59,7 +59,8 @@ app.get('/youtube/dl', function(req, res) {
 			console.error('error', err);
 			res.send(500);
 		} else {
-			res.send('http://'+req.host+':54322/'+rand+'.mp3');
+			req.query.upload = 'http://'+req.host+':54322/'+rand+'.mp3';
+			res.send(res.query);
 		}
 	});
 });
