@@ -14,9 +14,9 @@ var app = require('express')(),
 	server = require('http').createServer(app),
 	io = require('socket.io').listen(server),
 	fs = require('fs'),
-	urlencoded = require('body-parser').urlencoded,
+	bodyParser = require('body-parser'),
 	uuid = require('uuid');
-app.use(urlencoded());
+app.use(bodyParser());
 server.listen(54321);
 
 app.get('/', function(req, res) {
