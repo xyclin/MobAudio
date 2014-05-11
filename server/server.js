@@ -74,7 +74,7 @@ app.get('/youtube/list', function(req, res) {
 		if(err) {
 			res.send(500);
 		} else {
-			res.send(body);
+			res.send(JSON.parse(body));
 		}
 	});
 });
