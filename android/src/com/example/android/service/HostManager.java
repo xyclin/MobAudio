@@ -1,6 +1,7 @@
 package com.example.android.service;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 import io.socket.IOAcknowledge;
 import io.socket.IOCallback;
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 
 public class HostManager implements ConnectionHandler {
+    private String TAG = "Sockets";
     private boolean isConnected;
     private Context context;
     public HostManager(Context context) {
@@ -20,8 +22,9 @@ public class HostManager implements ConnectionHandler {
 
     public void connect() {
         SocketIO socket;
+        Log.i(TAG, "Before connecting");
         try {
-            socket = new SocketIO("192.241.208.189:54321");
+            socket = new SocketIO("http://linux024.student.cs.uwaterloo.ca:54321/");
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return;
@@ -36,6 +39,7 @@ public class HostManager implements ConnectionHandler {
 
             @Override
             public void onConnect() {
+                Log.i(TAG, "Connected to socket!");
                 isConnected = true;
             }
 
@@ -51,21 +55,23 @@ public class HostManager implements ConnectionHandler {
 
             @Override
             public void on(String s, IOAcknowledge ioAcknowledge, Object... objects) {
+                Log.i(TAG, s);
                 if (s == "heartbeat") {
-                    handleHeartbeat(objects);
+                    handleHeartbeat();
+                    Log.i(TAG, "Done");
                 }
             }
 
             @Override
             public void onError(SocketIOException e) {
-
+                System.out.println("an Error occured");
+                e.printStackTrace();
             }
         });
     }
 
-    public void handleHeartbeat(Object objects) {
-        Toast.makeText(context, "Sup",
-                Toast.LENGTH_SHORT).show();
+    public void handleHeartbeat() {
+        Log.d(TAG, "Handling Heartbeat");
     }
 
     public boolean isConnected() {
