@@ -3,6 +3,7 @@
     <string name="app_name">android</string>
     <string name="name_label">Name</string>
     <string name="url_label">URL</string>
+    <string name="time_label">Time</string>
     <string name="create_button">Create Group</string>
     <string name="song_status">Status</string>
     <string name="disconnect">Disconnect</string>

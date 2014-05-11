@@ -33,7 +33,7 @@ public class DiscoverMobFragment extends Fragment implements LocationListener {
         // Inflate the layout for this fragment
         //mPlayer = ClientManager.getInstance().getSong();
 		mListView = (ListView) inflater.inflate(R.layout.song_play_view, container, false);
-		LocationManager locationManager = (LocationManager) MyActivity.instance.getSystemService(Context.LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
         return mListView;
     }
