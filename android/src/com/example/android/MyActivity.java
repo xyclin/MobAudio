@@ -1,10 +1,13 @@
 package com.example.android;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,30 +38,23 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
 
     private AudioTrack currenTrack;
 
-    @Override
-    public void onCompletion(MediaPlayer mp) {
+    private FragmentManager mFragmentManager;
+    private FragmentTransaction mFragmentTransaction;
 
-    }
-
-    @Override
-    public void onDolbyAudioProcessingClientConnected() {
-
-    }
+    private Fragment mDiscoverSong;
+    private Fragment mSongPlaying;
+    private Fragment mCreateMob;
 
     @Override
-    public void onDolbyAudioProcessingClientDisconnected() {
-
-    }
-
+    public void onCompletion(MediaPlayer mp) {}
     @Override
-    public void onDolbyAudioProcessingEnabled(boolean b) {
-
-    }
-
+    public void onDolbyAudioProcessingClientConnected() {}
     @Override
-    public void onDolbyAudioProcessingProfileSelected(DolbyAudioProcessing.PROFILE profile) {
-
-    }
+    public void onDolbyAudioProcessingClientDisconnected() {}
+    @Override
+    public void onDolbyAudioProcessingEnabled(boolean b) {}
+    @Override
+    public void onDolbyAudioProcessingProfileSelected(DolbyAudioProcessing.PROFILE profile) {}
 
     @Override
     public String getSongPath() {
@@ -69,21 +65,37 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
     public void onCreate(Bundle savedInstanceState) {
         mNetworkAPI = NetworkAPI.getInstance();
 
+        mSongPlaying = new Fragment();
+        mDiscoverSong = new Fragment();
+        mCreateMob = new Fragment();
+
+        mFragmentManager = getFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.main);
         currenTrack = new AudioTrack(this);
 
         instance = this;
-        btnPlay = new Button(this);
+        /*btnPlay = new Button(this);
         btnPlay.setText("magic?");
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NetworkUploader.getInstance().showFileChooser();
             }
-        });
-        setContentView(btnPlay);
+        });*/
+        setContentView(R.id.fragment_container);
 
+        switchTo(mDiscoverSong);
+    }
+
+    private void switchTo(Fragment fragment) {
+        mFragmentTransaction.replace(R.id.fragment_container, fragment);
+        mFragmentTransaction.commit();
+    }
+
+    private void setupDolby() {
         mDolbyAudioProcessing =
                 DolbyAudioProcessing.getDolbyAudioProcessing(this, DolbyAudioProcessing.PROFILE.VOICE, this);
 
@@ -98,7 +110,6 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
                     "Hello there :)",
                     Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void playSong() {
@@ -117,4 +128,5 @@ public class MyActivity extends Activity implements MediaPlayer.OnCompletionList
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }
