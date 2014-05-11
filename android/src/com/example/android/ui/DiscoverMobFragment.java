@@ -11,20 +11,14 @@ import com.dolby.dap.OnDolbyAudioProcessingEventListener;
 import com.example.android.MyActivity;
 import com.example.android.R;
 
-public class SongPlayingFragment extends Fragment /*implements MediaPlayer.OnCompletionListener,
-        OnDolbyAudioProcessingEventListener*/ {
-    private MediaPlayer mPlayer;
+public class DiscoverMobFragment extends Fragment  {
     private DolbyAudioProcessing mDolbyAudioProcessing;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //mPlayer = ClientManager.getInstance().getSong();
         return inflater.inflate(R.layout.song_play_view, container, false);
-    }
-
-    public  void play(String address) {
-        mPlayer.start();
     }
 }

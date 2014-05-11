@@ -21,6 +21,7 @@ import ch.boye.httpclientandroidlib.params.CoreProtocolPNames;
 import ch.boye.httpclientandroidlib.util.EntityUtils;
 import ch.boye.httpclientandroidlib.entity.mime.MultipartEntityBuilder;
 import com.dolby.dap.DolbyAudioProcessing;
+import com.dolby.dap.OnDolbyAudioProcessingEventListener;
 import com.example.android.service.HostManager;
 import android.view.View;
 import android.widget.Button;
@@ -30,18 +31,47 @@ import java.io.File;
 import java.net.URISyntaxException;
 
 
-public class MyActivity extends Activity {
+public class MyActivity extends Activity implements MediaPlayer.OnCompletionListener,
+        OnDolbyAudioProcessingEventListener {
+    public static Activity instance;
+
     private static final int FILE_SELECT_CODE = 0;
     Button btnPlay;
     MediaPlayer mPlayer;
     boolean isRunning;
-    int arity = 0;
     String mobMusicUrl;
+    private DolbyAudioProcessing mDolbyAudioProcessing;
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+
+    }
+
+    @Override
+    public void onDolbyAudioProcessingClientConnected() {
+
+    }
+
+    @Override
+    public void onDolbyAudioProcessingClientDisconnected() {
+
+    }
+
+    @Override
+    public void onDolbyAudioProcessingEnabled(boolean b) {
+
+    }
+
+    @Override
+    public void onDolbyAudioProcessingProfileSelected(DolbyAudioProcessing.PROFILE profile) {
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.main);
+        instance = this;
         btnPlay = new Button(this);
         btnPlay.setText("magic?");
         btnPlay.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +81,21 @@ public class MyActivity extends Activity {
             }
         });
         setContentView(btnPlay);
+
+        mDolbyAudioProcessing =
+                DolbyAudioProcessing.getDolbyAudioProcessing(this, DolbyAudioProcessing.PROFILE.VOICE, this);
+
+        if (mDolbyAudioProcessing == null) {
+            Toast.makeText(this,
+                    "Dolby Audio Processing not available on this device.",
+                    Toast.LENGTH_SHORT).show();
+            //finish();
+            //return;
+        } else {
+            Toast.makeText(this,
+                    "Hello there :)",
+                    Toast.LENGTH_SHORT).show();
+        }
         /* end of OnCreate
         HostManager host = new HostManager(getApplicationContext());
         host.connect();
@@ -87,6 +132,7 @@ public class MyActivity extends Activity {
         });
         setContentView(btnPlay);
         */
+        
     }
 
     private void showFileChooser() {
