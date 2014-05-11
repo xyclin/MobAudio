@@ -172,16 +172,14 @@ function broadcast(evt, data) {
 }
 
 io.sockets.on('connection', function(socket) {
+	if (!socket)
+		return;
 	var _clientId = _nextClientId++;
 	_clients[_clientId] = socket;
 	function handler(err) {
 		console.error('socket error in', _clientId, err);
-		try {
-			delete _clients[_clientId];
-			socket.close();
-		} catch(err) {
-			console.error('error error', err);
-		}
+		delete _clients[_clientId];
+		socket.close();
 	}
 	(function heartbeat() {
 		socket.emit('heartbeat', { timestamp: Date.now() }, handler);
