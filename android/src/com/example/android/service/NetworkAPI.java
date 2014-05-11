@@ -19,7 +19,7 @@ public class NetworkAPI {
         this.handler = handler;
         this.client = new DefaultHttpClient();
     }
-
+    /* shut up i need this to compile
     public File get(String url) {
         URI uri = null;
         try {
@@ -33,7 +33,7 @@ public class NetworkAPI {
     }
 
     public String post(File audioTrack) {
-        
+
     }
 
     public HttpResponse execute(HttpUriRequest request) {
@@ -45,4 +45,5 @@ public class NetworkAPI {
         }
         return response;
     }
+    */
 }
