@@ -76,9 +76,9 @@ UIRefreshControl* refreshControl;
         mobs =  [((NSDictionary*)responseObject) objectForKey:@"mobs"];
         
         if(show) [SVProgressHUD dismiss];
-        //else [refreshControl endRefreshing];
+        else [refreshControl endRefreshing];
         
-        //[view reloadData];
+        [view reloadData];
         
         
         

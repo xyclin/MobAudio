@@ -15,7 +15,7 @@
 @implementation SNJoinViewController
 
 SocketIO  *io;
-AVAudioPlayer *myAudioPlayer;
+AVPlayer *myAudioPlayer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,7 +32,7 @@ AVAudioPlayer *myAudioPlayer;
     [SVProgressHUD showWithStatus:@"Connecting to Host"];
     io = [[SocketIO alloc] initWithDelegate:self];
     [io connectToHost:@"192.241.208.189" onPort:54321];
-    myAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:[self.mob objectForKey:@"url"]] error:nil];
+    myAudioPlayer = [AVPlayer playerWithURL:[NSURL URLWithString:[self.mob objectForKey:@"url"]]];
     [self setTitle:@"Waiting Room"];
     self.name.text = [self.mob objectForKey:@"name"];
 }
@@ -50,19 +50,21 @@ AVAudioPlayer *myAudioPlayer;
     }
 }
 
+
 - (void) socketIODidConnect:(SocketIO *)socket{
     [SVProgressHUD dismiss];
-    [io sendEvent:@"subscribe" withData:[NSDictionary dictionaryWithObjectsAndKeys:[self.mob objectForKey:@"mobId"], @"mobId", nil]];
+    [io sendEvent:@"subscribe" withData:self.mob];
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated{
-    [io sendEvent:@"unsubscribe" withData:[NSDictionary dictionaryWithObjectsAndKeys:[self.mob objectForKey:@"mobId"], @"mobId", nil]];
+   // [io sendEvent:@"unsubscribe" withData:self.mob];
     [io disconnect];
     [super viewWillDisappear:animated];
 }
 
 -(IBAction)cancel:(id)sender{
+    [myAudioPlayer pause];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

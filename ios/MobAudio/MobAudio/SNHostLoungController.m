@@ -68,17 +68,8 @@ bool playing;
 }
 
 -(IBAction)play:(id)sender{
-    if(!playing){
-        NSLog(@"%@", self.mob);
-        [io sendEvent:@"play" withData:self.mob];
-        [myAudioPlayer play];
-        ((UIButton*)sender).titleLabel.text = @"pause";
-        playing = true;
-    }
-    else{
-        [myAudioPlayer pause];
-        ((UIButton*)sender).titleLabel.text = @"play";
-    }
+    [io sendEvent:@"play" withData:self.mob];
+    [myAudioPlayer play];
 }
 
 @end
